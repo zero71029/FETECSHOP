@@ -197,11 +197,6 @@
 
 
 
-
-
-
-
-
                         <!-- 搜索 -->
 
                         <div class="col-lg-3">
@@ -231,7 +226,7 @@
                                     <c:forEach varStatus="loop" begin="0" end="${orderList.size()-1}"
                                         items="${orderList}" var="s">
                                         <tr class="TTT"
-                                            onclick="Detailed(${s.orderid},'${s.company} ${s.address} ${s.postalcode}   ${s.country}','${s.firstname} ${s.lastname}','${s.phone}','${s.message}')">
+                                            onclick="Detailed(${s.orderid},'${s.order_address}','${s.order_name}','${s.phone}','${s.message}')">
                                             <td class="col-lg-1">
                                                 ${s.orderid}</td>
                                             <td class="col-lg-1 ">

@@ -1,0 +1,122 @@
+
+
+
+.main {
+	padding-top:50px;
+}
+
+.main .grid-row{
+   
+    position: relative;
+    background-color: white;   
+    border-radius: 5px;
+}
+
+
+
+/* ✿海貓食屋✿ */
+.main .grid-row .loginTitle{
+    font-size: 30px;
+    margin:0 auto 0 auto;
+    text-align:center;
+}
+
+
+
+.main .grid-row form {
+	position:relative;
+}
+
+
+.main .grid-row .formCSS{
+    width: 100%;
+    margin: 0 0 30px ;
+    border-radius: 5px;
+    line-height:35px;
+	height:35px;
+	text-indent:0.5rem;
+	border:1px solid #ddd;
+	
+}
+
+
+
+
+.main .grid-row a{
+	display:inline-block;
+    /* color: black; */
+    text-decoration:underline;
+    margin-left:10px;
+}
+
+.main .grid-row hr {
+	display:inline-block;
+	width:45%;
+	vertical-align:middle;
+	margin:20px auto;
+	background:#666;
+
+}
+
+.main .grid-row span {
+	line-height:40px;
+	color:#666;
+
+}
+
+.main .grid-row .orblock {
+	line-height:40px;
+	height:40px;
+	margin:35px auto;
+	width:80%;
+	
+}
+
+.g-recaptcha{
+    width:50%;
+    margin:10px auto;
+    
+}
+
+/* 錯誤訊息 */
+.main .grid-row  .error{
+	color :red;
+}
+
+.checkerror {
+	display:block;
+	margin:0 auto;
+	 text-align:center;
+}
+
+.main .grid-row  .forOtherLog {
+	height:60px;
+	margin:0 50px;
+	display:inline-flex;
+	justify-content: space-around;
+}
+
+/* google登入 */
+.g-signin2{
+    display: inline-block;	
+    				
+}
+
+
+.main .grid-row .phone {
+	position:relative;
+	display:inline-block;
+	background:#0D6EFD;
+	line-height:30px;
+	padding:5px 15px;
+	color:white;
+    width: 200px;
+    height:50px;
+    border-radius: 5px;
+    margin:0;
+    margin-right:45px;
+
+   
+}
+
+

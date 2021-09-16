@@ -23,7 +23,7 @@
             <title>Document</title>
         </head>
         <style>
-           div {
+           div {   
                 /* border: 2px solid black; */
             }
 

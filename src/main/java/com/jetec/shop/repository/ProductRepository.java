@@ -24,7 +24,7 @@ public interface ProductRepository extends JpaRepository<ProductBean, Integer>{
 	List<ProductBean> findByNameLikeIgnoreCase(String name);
 	List<ProductBean> findByModelLikeIgnoreCase(String model);
 	boolean existsByType(Integer type);
-
+	boolean existsByModelLikeIgnoreCaseAndProductstatus(String model,String state);
 
 	@Transactional
 	@Modifying

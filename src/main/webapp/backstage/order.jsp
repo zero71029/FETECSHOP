@@ -312,6 +312,11 @@
                     if ($(".selectOrder").val() != "")
                         window.location.href = "${pageContext.request.contextPath}/backstage/findOrder/" + $(".selectOrder").val();
                 })
+                //按回車
+                $(".selectOrder").keydown(function (e) {
+                    if (e.keyCode == 13) window.location.href = "${pageContext.request.contextPath}/backstage/findOrder/" + $(".selectOrder").val();
+
+                })
 
             </script>
         </body>

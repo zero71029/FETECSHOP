@@ -9,10 +9,29 @@ import com.jetec.shop.model.OrderBean;
 
 public interface OrderRepository extends JpaRepository<OrderBean, Integer>{
 	List<OrderBean> findByOrderstatus(String orderstatus);
+	List<OrderBean> findByFirstname(String firstname);
+	List<OrderBean> findByLastname(String lastname);
+	List<OrderBean> findByCompany(String company);
+	List<OrderBean> findByPhone(String phone);
+	
+	
+	
+	
+	
+	@Query(value ="FROM OrderBean WHERE order_name = ?1")
+	List<OrderBean> Ordename(String osadsd);
+	
+	@Query(value ="FROM OrderBean WHERE order_email = ?1")
+	List<OrderBean> findByOrderemail(String order_email);
+//	List<OrderBean> findByOrderphone(String order_phone);
+
+	
+	
+	
+	
 	List<OrderBean> findByUserid(Integer userid );
 	@Query(value ="SELECT DISTINCT * FROM `orders` WHERE userid = ?1 GROUP BY address ORDER BY createdate DESC  ", nativeQuery=true)
-	List<OrderBean> selectAddress(Integer userId);
-	
+	List<OrderBean> selectAddress(Integer userId);	
 	@Query(value ="SELECT  * FROM `orders` WHERE userid = ?1  ORDER BY createdate DESC  ", nativeQuery=true)
 	List<OrderBean> findByUseridDESC(Integer userId);
 }

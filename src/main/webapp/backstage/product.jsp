@@ -186,20 +186,20 @@
 
                                 <div class="col-md-4">
                                     <c:if test="${product.psb == null}">
-                                    庫存&nbsp;<input type="number" name="quantity" id="" value="${product.quantity}"
-                                        class="err" placeholder="${errors.quantity}"><br>
-                                    進價&nbsp;<input type="number" name="purchaseprice" id=""
-                                        value="${product.purchaseprice}" class="err"
-                                        placeholder="${errors.purchaseprice}"><br>
-                                    售價&nbsp;<input type="number" name="sellprice" id="" value="${product.sellprice}"
-                                        class="err" placeholder="${errors.sellprice}"><br>
-                                    </select><br>
-                                </c:if>
+                                        庫存&nbsp;<input type="number" name="quantity" id="" value="${product.quantity}"
+                                            class="err" placeholder="${errors.quantity}"><br>
+                                        進價&nbsp;<input type="number" name="purchaseprice" id=""
+                                            value="${product.purchaseprice}" class="err"
+                                            placeholder="${errors.purchaseprice}"><br>
+                                        售價&nbsp;<input type="number" name="sellprice" id="" value="${product.sellprice}"
+                                            class="err" placeholder="${errors.sellprice}"><br>
+                                        </select><br>
+                                    </c:if>
                                     狀態&nbsp;<select class="" name="productstatus">
                                         <option value="1" ${product.productstatus==1 ?"selected":null}>正常</option>
                                         <option value="2" ${product.productstatus==2 ?"selected":null}>下架</option>
                                         <option value="3" ${product.productstatus==3 ?"selected":null}>無庫存</option>
-                                     
+
 
                                 </div>
 
@@ -392,7 +392,9 @@
                                                             placeholder="${p.product_quantity}"></td>
                                                     <td><button type="button" onclick="saveOption(${p.id})">儲存</button>
                                                     </td>
-                                                    <td><a href="${pageContext.request.contextPath}/backstage/removeOption/${p.id}/${product.id}">移除</a> </td>
+                                                    <td><a
+                                                            href="${pageContext.request.contextPath}/backstage/removeOption/${p.id}/${product.id}">移除</a>
+                                                    </td>
                                                 </form>
                                             </tr>
 
@@ -599,8 +601,24 @@
                     success: function (json) {
                         console.log(json)
                         alert(json);
-                        if (json == "save ok")
-                            window.location.href = "${pageContext.request.contextPath}/backstage/product/${product.id}";
+                        // if (json == "save ok")
+                        //     window.location.href = "${pageContext.request.contextPath}/backstage/product/${product.id}";
+
+
+                        $(".orderTable").append('<tr><form class="newGroup" action="" method="post">' +
+                            ' <td><input type="text" name="product_type" id="" placeholder="編號"></td>' +
+                            '<input type="hidden" name="product_group" value="${group}">' +
+                            '<input type="hidden" name="product_group2" value="${group2}">' +
+                            '<input type="hidden" name="product_group3" value="${group3}">' +
+                            '<td><input type="text" name="product_option" id="" placeholder="選項名稱"></td>' +
+                            '<td><input type="text" name="product_option2" id="" placeholder="選項名稱"></td>' +
+                            '<td><input type="text" name="product_option3" id="" placeholder="選項名稱"></td>' +
+                            '<td><input type="number" name="purchase_price" id="" placeholder="進價"></td>' +
+                            '<td><input type="number" name="product_price" id="" placeholder="售價"></td>' +
+                            '<td><input type="number" name="product_quantity" id="" placeholder="庫存"></td>' +
+                            '<td><button type="button" onclick="saveOption(0)">新增</button></td>' +
+                            '</form></tr>');
+
 
                     },
                     error: function (returndata) {
@@ -637,12 +655,6 @@
                 i++;
                 var s = i + 1;
                 $(".psb").append('特點' + s + '&nbsp;<input type="text" name="psb[' + i + '].sptext" id="" value="" placeholder=""><br>');
-            }
-
-            var j = {
-                "": {},
-                "": "",
-                "": "ddddd"
             }
 
 

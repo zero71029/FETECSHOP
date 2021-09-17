@@ -122,7 +122,7 @@
                             <!-- <span>規格</span> -->
                             <div class="AAAgroud">
                             </div>
-                            <span>Quantity</span>
+                            <span >Quantity</span>
                             <!--加入購物車  -->
                             <div style="position: relative;">
 
@@ -278,7 +278,7 @@
                 async: false,//同步請求
                 dataType: "json",
                 contentType: 'application/json; charset=UTF-8',
-                success: function (json) {
+                success: function (json) {                    
                     option = json;
                     //添加群組
                     if (option[0].product_group != "1") {
@@ -300,45 +300,50 @@
                         var aset = new Set();
                         $(".AAAgroud").append('<label for="type2">${group2}</label><br>' +
                             '<select name="product_option2" id="type2" class="" aria-label="Default select example"' +
-                            'style="width: 50%;">' +
+                            'style="width: 50%;" >' +
                             '</select><br><br>');
                     } else {
                         $(".AAAgroud").append('<select  id="type2" value="" ></select>');
                         $("#type2").hide();
                     }
                     //添加群組3
-                    if (option[0].product_group3 != null && option[0].product_group2 != "") {
+                    if (option[0].product_group3 != null && option[0].product_group3 != "") {
                         var aset = new Set();
                         $(".AAAgroud").append('<label for="type3">${group3}</label><br>' +
                             '<select name="product_option2" id="type3" class="" aria-label="Default select example"' +
-                            'style="width: 50%;">' +
+                            'style="width: 50%;" onchange="changeElenment()">' +
                             '</select><br><br>');
                     } else {
                         $(".AAAgroud").append('<select  id="type3" value="" ></select>');
                         $("#type3").hide();
                     }
+                    //過濾重複
                     var op1 = new Set();
                     var op2 = new Set();
                     var op3 = new Set();
-                    for (op of option) {
-                        //過濾重複
+                    for (op of option) { 
+                        console.log(op.product_option);                       
                         op1.add(op.product_option);
-                        op2.add(op.product_option2);
-                        op3.add(op.product_option3);
+                        if(op.product_option == option[0].product_option){
+                            op2.add(op.product_option2);
+                            op3.add(op.product_option3);
+                        }     
                         priced.set(op.product_model, op.product_price);
                     }
-                    for (op of op1) {
+                    //添加子項
+                    for (op of Array.from(op1).sort()) {
                         //添加子項
                         $("#type1").append('<option value="' + op + '">' + op + '</option>');
                     }
-                    for (op of op2) {
+                    for (op of Array.from(op2).sort()) {
                         //添加子項
                         $("#type2").append('<option value="' + op + '">' + op + '</option>');
                     }
-                    for (op of op3) {
+                    for (op of Array.from(op3).sort()) {
                         //添加子項
                         $("#type3").append('<option value="' + op + '">' + op + '</option>');
                     }
+                    if(option[0].product_quantity == 0)$(".btnsss").hide();
                 },
                 error: function (returndata) {
                     console.log("error");
@@ -349,60 +354,56 @@
             for (op of option) {
                 console.log(op);
             }
-            $("#type1").change(function () {
-                console.log($("#type1").val() + "-" + $("#type2").val() + "-" + $("#type3").val());
-                for (op of option) {
-                    if (op.product_model == ($("#type1").val() + "-" + $("#type2").val() + "-" + $("#type3").val())) {
-
-                        $(".btnsss").show();
-                        //價格修改                        
-                        $(".US").text("US$" + op.product_price);
-                        console.log("US$" + op.product_price);
-                        //庫存修改
-                        $(".productQuantity").text("庫存:" + op.product_quantity);
-                        quantity = op.product_quantity;
-                        //位址修改           
-                        $("#myFormId").attr("action", "${pageContext.request.contextPath}/cart/" + op.id);
-                        break;
-
-                    } else {
-                        //價格修改
-                        $(".US").text("缺貨");
-                        //庫存修改
-                        $(".productQuantity").text("庫存:0");
-                        quantity = op.product_quantity;
-                        //位址修改           
-                        $("#myFormId").attr("action", "${pageContext.request.contextPath}/cart/" + op.id);
-                        $(".btnsss").hide();
+            $("#type1").change(function(){
+                $("#type2").empty();
+                $("#type3").empty();
+                var op2 = new Set();
+                var op3 = new Set();                
+                for (op of option) {  
+                    if(op.product_option == $("#type1").val()){
+                        op2.add(op.product_option2);
+                        op3.add(op.product_option3);
                     }
                 }
+                for (op of Array.from(op2).sort()) {
+                        //添加子項
+                        $("#type2").append('<option value="' + op + '">' + op + '</option>');
+                    }
+                for (op of Array.from(op3).sort()) {
+                        //添加子項
+                        $("#type3").append('<option value="' + op + '">' + op + '</option>');
+                    }
+                changeElenment();
             })
-            $("#type2").change(function () {
-                for (op of option) {
-                    if (op.product_model == ($("#type1").val() + "-" + $("#type2").val() + "-" + $("#type3").val())) {
-                        //價格修改
-                        $(".US").text("US$" + op.product_price);
-                        //庫存修改
-                        $(".productQuantity").text("庫存:" + op.product_quantity);
-                        quantity = op.product_quantity;
-                        //位址修改           
-                        $("#myFormId").attr("action", "${pageContext.request.contextPath}/cart/" + op.id);
-                        $(".btnsss").show();
-                        break;
-                    } else {
-                        //價格修改
-                        $(".US").text("缺貨");
-                        //庫存修改
-                        $(".productQuantity").text("庫存:0");
-                        quantity = op.product_quantity;
-                        //位址修改           
-                        $("#myFormId").attr("action", "${pageContext.request.contextPath}/cart/" + op.id);
-                        $(".btnsss").hide();
+            $("#type2").change(function(){                
+                $("#type3").empty();               
+                var op3 = new Set();
+                console.log($("#type2").val());
+                for (op of option) {  
+                    if(op.product_option == $("#type1").val() && op.product_option2 == $("#type2").val()){                       
+                        op3.add(op.product_option3);
                     }
                 }
+                for (op of Array.from(op3).sort()) {
+                        //添加子項
+                        $("#type3").append('<option value="' + op + '">' + op + '</option>');
+                    }  
+                changeElenment();              
             })
-            $("#type3").change(function () {
-                for (op of option) {
+            // $("#type3").change(
+            //     changeElenment
+            // )
+
+
+
+
+
+
+
+
+            //價格修改
+            function changeElenment(){                
+                for (op of option) {                    
                     if (op.product_model == ($("#type1").val() + "-" + $("#type2").val() + "-" + $("#type3").val())) {
                         //價格修改                        
                         $(".US").text("US$" + op.product_price);
@@ -412,6 +413,7 @@
                         //位址修改           
                         $("#myFormId").attr("action", "${pageContext.request.contextPath}/cart/" + op.id);
                         $(".btnsss").show();
+                        if(quantity == 0)$(".btnsss").hide();
                         break;
                     } else {
                         //價格修改
@@ -423,8 +425,9 @@
                         $("#myFormId").attr("action", "${pageContext.request.contextPath}/cart/" + op.id);
                         $(".btnsss").hide();
                     }
+                    
                 }
-            })
+            }
 
 
 

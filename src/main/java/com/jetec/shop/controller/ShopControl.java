@@ -64,7 +64,8 @@ public class ShopControl {
 	@RequestMapping("/shopSort")
 	public String shopSort(Model model, @RequestParam("ptype") Integer ptype, @RequestParam("pag") Integer pag) {
 		System.out.println("**************商品分類********************");
-		if (pag < 1)pag = 1;
+		if (pag < 1)
+			pag = 1;
 		pag--;
 		Page<ProductBean> page = productRepository.findByProductstatusAndType("1", ptype, PageRequest.of(pag, 12));
 //		page.getSize();每頁條數
@@ -150,17 +151,16 @@ public class ShopControl {
 //			沒資料 把數量加入
 			System.out.println(e);
 		} finally {
-			//取得商品庫存
-			int  quantity =   por.getById(optionId).getProduct_quantity();
-			//判斷有無大於庫存
-			if(num >= quantity ) {
-				num =quantity;
+			// 取得商品庫存
+			int quantity = por.getById(optionId).getProduct_quantity();
+			// 判斷有無大於庫存
+			if (num >= quantity) {
+				num = quantity;
 			}
-			if(num == 0) {
+			if (num == 0) {
 				return "redirect:/product/" + productRepository.getById(productOptionBean.getProductid()).getModel();
 			}
-			
-			
+
 			cart.put(Integer.toString(optionId), num);
 			session.setAttribute("cart", cart);
 			session.setAttribute("cartNum", cartNum(cart));
@@ -263,13 +263,13 @@ public class ShopControl {
 	public Map<String, Integer> addCart(@PathVariable("id") String id, HttpSession session) {
 		System.out.println("********************Cart數量增加**************************" + id);
 		Map<String, Integer> body = (Map<String, Integer>) session.getAttribute("cart");
-		int AAA = body.get(id);//購物車數量	
-		//取得商品庫存
-		int  quantity =   por.getById(Integer.parseInt(id)).getProduct_quantity();
-		//判斷有無大於庫存
-		if(AAA >= quantity ) {
-			AAA =quantity;
-		}else {
+		int AAA = body.get(id);// 購物車數量
+		// 取得商品庫存
+		int quantity = por.getById(Integer.parseInt(id)).getProduct_quantity();
+		// 判斷有無大於庫存
+		if (AAA >= quantity) {
+			AAA = quantity;
+		} else {
 			AAA++;
 		}
 
@@ -302,11 +302,11 @@ public class ShopControl {
 			@RequestBody Integer body) {
 		System.out.println("********************修改購物車數量*****************************************" + id);
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
-		//取得商品庫存
-		int  quantity =   por.getById(Integer.parseInt(id)).getProduct_quantity();
-		//判斷有無大於庫存
-		if(body >= quantity ) {
-			body =quantity;
+		// 取得商品庫存
+		int quantity = por.getById(Integer.parseInt(id)).getProduct_quantity();
+		// 判斷有無大於庫存
+		if (body >= quantity) {
+			body = quantity;
 		}
 		cart.put(id, body);
 		session.setAttribute("cart", cart);
@@ -401,12 +401,12 @@ public class ShopControl {
 		UserBean userBean = UserRepository.findByEmail(bean.getEmail());
 		if (userBean != null)
 			bean.setUserid(userBean.getUserid());
-		//算總價
+		// 算總價
 		int total = 0;
 		for (Object key : cart.keySet()) {
 			Integer price = por.getById(Integer.parseInt((String) key)).getProduct_price();
 			total += price * cart.get(key);
-		}		
+		}
 		model.addAttribute("total", total);
 		// 如果有錯 回原本頁面
 		if (errors != null && !errors.isEmpty()) {
@@ -431,7 +431,8 @@ public class ShopControl {
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
 		int total = 0;
 		for (Object key : cart.keySet()) {
-			Integer price =por.getById(Integer.parseInt((String)key)).getProduct_price();     //finPiceById((String) key);
+			Integer price = por.getById(Integer.parseInt((String) key)).getProduct_price(); // finPiceById((String)
+																							// key);
 			total += price * cart.get(key);
 		}
 		model.addAttribute("total", total);
@@ -446,7 +447,7 @@ public class ShopControl {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
 //付款成功 存檔
 	@RequestMapping("/review")
-	public String review(HttpSession session,Model model) {
+	public String review(HttpSession session, Model model) {
 		System.out.println("**************付款成功 存檔***********************");
 		OrderBean orderBean = (OrderBean) session.getAttribute("order");
 		UserBean userBean = (UserBean) session.getAttribute("user");
@@ -455,15 +456,9 @@ public class ShopControl {
 		} else {
 			orderBean.setUserid(1);
 		}
-		
-		
-		
-		
-		
+
 		orderBean.setOrderstatus("1");
 		Map<String, Integer> cart = (Map<String, Integer>) session.getAttribute("cart");
-		
-		
 
 		OrderBean save = orderService.saveOrder(orderBean, cart);
 		// 發送email
@@ -471,11 +466,10 @@ public class ShopControl {
 		String Subject = "定單通知";
 		zTools.mail(orderBean.getEmail(), text, Subject);
 
-
 		session.removeAttribute("order");
 		session.removeAttribute("cart");
 		session.setAttribute("cartNum", 0);
-		model.addAttribute("id",save.getOrderid());
+		model.addAttribute("id", save.getOrderid());
 		return "/shop/review";
 	}
 
@@ -631,29 +625,30 @@ public class ShopControl {
 	@RequestMapping("/searchProduct/{product}")
 	public String searchProduct(Model model, @PathVariable("product") String product) {
 		System.out.println("*****查詢商品*****" + product);
-		List<ProductBean> list = null;
-		
+		List<ProductBean> list = new ArrayList<ProductBean>();
+		ProductBean productBean = null;
 //判斷數字
 		try {
+			// 搜索id
 			System.out.println(Integer.parseInt(product));
+			System.out.println(backstageService.getProduct(Integer.parseInt(product)));
+			productBean = backstageService.getProduct(Integer.parseInt(product));
+			list.add(productBean);
+
 		} catch (Exception e) {
-//不是數字 搜索貨號
-			 list = productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%","1");
-//搜不到貨號 用名稱搜索
-			if (list.isEmpty())
-				list = productRepository.findByNameLikeIgnoreCaseAndProductstatus("%" + product + "%","1");
-			model.addAttribute("maxPage", list);
-			return "/shop/shopSort";
+
 		}
-		 list = productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%","1");
-//搜不到貨號 用ID搜索
-		if (list.isEmpty()) {
-			ProductBean productBean = backstageService.getProduct(Integer.parseInt(product));
-			 list = new ArrayList<ProductBean>();
-			if (productBean != null)
-				list.add(productBean);
-			
-		}	
+		//  搜索貨號
+		for (ProductBean p : productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%", "1")) {			
+			list.add(p);
+		}
+
+		// 用名稱搜索
+		for (ProductBean p : productRepository.findByNameLikeIgnoreCaseAndProductstatus("%" + product + "%", "1")) {
+			if (null != p)
+				list.add(p);
+		}
+
 		model.addAttribute("maxPage", list);
 		return "/shop/shopSort";
 	}
@@ -664,6 +659,7 @@ public class ShopControl {
 		return "redirect:/shop.jsp";
 
 	}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //儲存Email
 	@RequestMapping("/saveEmail")
@@ -671,7 +667,7 @@ public class ShopControl {
 	public String saveEmail(EmailBean bean) {
 		System.out.println(bean);
 		return backstageService.saveEmail(bean);
-		
+
 	}
 
 }

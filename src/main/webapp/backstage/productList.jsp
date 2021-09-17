@@ -188,6 +188,11 @@
                 $(".form-control").val();
                 window.location.href = "${pageContext.request.contextPath}/backstage/selectProduct/" + $(".form-control").val();
             })
+            			//按回車
+			$(".form-control").keydown(function(e){				
+				if(e.keyCode== 13)window.location.href = "${pageContext.request.contextPath}/backstage/selectProduct/" + $(".form-control").val();
+				
+			})
 
         </script>
 

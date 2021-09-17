@@ -125,7 +125,6 @@ public class BackstageControl {
 	@RequestMapping("/product")
 	public String productList(Model model, @RequestParam("pag") Integer p, @RequestParam("state") String state) {
 		System.out.println("*****讀取商品資訊 *****");
-
 		List<ProductBean> result = productRepository.findByProductstatus(state);
 //		List<ProductBean> result = productRepository.findAll();
 		model.addAttribute("productList", result);
@@ -292,25 +291,28 @@ public class BackstageControl {
 		System.out.println("*****查詢商品*****" + product);
 		ProductBean productBean = null;
 		List<ProductBean> list = new ArrayList<ProductBean>();
-		// 判斷數字
-		try {
-			System.out.println(Integer.parseInt(product));
-		} catch (Exception e) {
-			// 不是數字 搜索貨號
-			list = productRepository.findByModelLikeIgnoreCase("%" + product + "%");
-			// 搜不到貨號 用名稱
-			if (list.isEmpty())
-				list = productRepository.findByNameLikeIgnoreCase("%" + product + "%");
-			model.addAttribute("productList", list);
-			return "/backstage/productList";
-		}
-		// 搜索貨號
-		list = productRepository.findByModelLikeIgnoreCase("%" + product + "%");
-		// 搜不到貨號 用ID搜索
-		if (list.isEmpty()) {
-			productBean = backstageService.getProduct(Integer.parseInt(product));
-			list.add(productBean);
-		}
+		//判斷數字
+				try {
+					// 搜索id
+					System.out.println(Integer.parseInt(product));
+					System.out.println(backstageService.getProduct(Integer.parseInt(product)));
+					productBean = backstageService.getProduct(Integer.parseInt(product));
+					list.add(productBean);
+
+				} catch (Exception e) {
+
+				}
+				// 不是數字 搜索貨號
+				for (ProductBean p : productRepository.findByModelLikeIgnoreCase("%" + product + "%")) {
+					System.out.println(p);
+					list.add(p);
+				}
+
+				//搜不到貨號 用名稱搜索
+				for (ProductBean p : productRepository.findByNameLikeIgnoreCase("%" + product + "%")) {
+					if (null != p)
+						list.add(p);
+				}
 		model.addAttribute("productList", list);
 		return "/backstage/productList";
 	}
@@ -665,10 +667,56 @@ public class BackstageControl {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //搜索訂單
 	@RequestMapping("/findOrder/{orderId}")
-	public String findOrder(Model model, @PathVariable("orderId") Integer orderId) {
+	public String findOrder(Model model, @PathVariable("orderId") String orderId) {
 		System.out.println("*****搜索訂單*****");
 		List<OrderBean> list = new ArrayList<OrderBean>();
-		list.add(orderRepository.getById(orderId));
+		OrderBean orderBean = new OrderBean();
+		try {
+			// 搜索id
+			if(orderRepository.existsById(Integer.parseInt(orderId)))
+			orderBean = orderRepository.getById(Integer.parseInt(orderId));
+			list.add(orderBean);
+
+		} catch (Exception e) {
+
+		}
+		
+		// 用名稱搜索
+		for (OrderBean p : orderRepository.Ordename(orderId)) {
+			if (null != p)
+				list.add(p);
+		}
+		// 
+		for (OrderBean p : orderRepository.findByFirstname(orderId)) {
+			if (null != p)
+				list.add(p);
+		}
+		// 
+		for (OrderBean p : orderRepository.findByLastname(orderId)) {
+			if (null != p)
+				list.add(p);
+		}
+		// 
+		for (OrderBean p : orderRepository.findByCompany(orderId)) {
+			if (null != p)
+				list.add(p);
+		}
+		// 
+		for (OrderBean p : orderRepository.findByPhone(orderId)) {
+			if (null != p)
+				list.add(p);
+		}
+		// 
+		for (OrderBean p : orderRepository.findByOrderemail(orderId)) {
+			if (null != p)
+				list.add(p);
+		}
+		
+		if(list.isEmpty()) {
+			System.out.println(list);
+		}
+
+//		list.add(orderRepository.getById(orderId));
 		model.addAttribute("orderList", list);
 		return "/backstage/order";
 	}

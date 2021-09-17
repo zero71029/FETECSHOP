@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <html lang="zh-TW">
+        <html lang="zh-TW">
 
         <head>
             <meta charset="UTF-8">
@@ -26,10 +26,6 @@
         <style>
             div {
                 /* border: 2px solid black; */
-            }
-
-            body {
-                /* background-color: #222; */
             }
 
             .headtop {
@@ -92,9 +88,82 @@
             .mainColor {
                 background-color: #62A5A1;
             }
+
+            .TTT:hover {
+                background-color: #afe3d5;
+            }
+
+            /* 彈窗 */
+            .hazy {
+
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 40;
+
+            }
+
+            .cat {
+                border: blue 1px solid;
+                background-color: white;
+                width: 830px;
+                height: 450px;
+                z-index: 50;
+                position: absolute;
+                left: 0%;
+                right: 0%;
+                margin: auto;
+                top: 150px;
+                border-radius: 15px;
+
+
+            }
+
+            .cat p {
+                position: relative;
+                text-align: right;
+                right: 100px;
+            }
+
+            .cat form {
+                top: 10px;
+                position: relative;
+                left: 20px;
+            }
+
+            .cat input {
+                width: 95%;
+            }
+
+            .cat select {
+                width: 95%;
+            }
+
+            /* 購物車返回 */
+            .catReturn {
+                top: -10px;
+                right: -10px;
+                position: absolute;
+                background-color: red;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                z-index: 20;
+            }
         </style>
 
         <body>
+            <!-- <%-- // 訂單細節 彈窗///////////////////////////////////////////////////////////////////////////////////////////////--%> -->
+            <div class="hazy"></div>
+            <div class="cat container" >
+                <button class="catReturn">X</button>
+                <div class="row detailTable">
+                    
+                    <div class="col-lg-3">xxx:</div><div class="col-lg-9">xxxxxxxxx</div>
+                </div>
+            </div>
+            <!-- <%-- // 訂單細節結束///////////////////////////////////////////////////////////////////////////////////////////////--%> -->
             <!-- <%-- 頁首--%> -->
             <header class="container-fluid mainColor headtop">
                 <a href='${pageContext.request.contextPath}/backstage/shopBack.jsp' class='title'>商城後台</a>
@@ -125,7 +194,7 @@
                                 <tr>
                                     <td>ID</td>
                                     <td>姓名</td>
-                                    <td>電話</td>                                    
+                                    <td>電話</td>
                                     <td>Email</td>
                                     <td>狀態</td>
                                     <td>訂單</td>
@@ -133,10 +202,10 @@
                                 <c:if test="${not empty userList}">
                                     <c:forEach varStatus="loop" begin="0" end="${userList.size()-1}" items="${userList}"
                                         var="s">
-                                        <tr class="TTT">
+                                        <tr class="TTT" onclick="user(${s.userid})">
                                             <td>${s.userid}</td>
                                             <td>${s.firstname}&nbsp;&nbsp;${s.lastname}</td>
-                                            <td>${s.phone}</td>                                            
+                                            <td>${s.phone}</td>
                                             <td>${s.email}</td>
                                             <td>${s.state == 1?"正常":"未驗證"}</td>
                                             <td class="col-lg-1 "><button type="button" class="btn btn-primary"
@@ -154,18 +223,59 @@
 
         </body>
         <script>
-            $("#buttonaddon2").on("click",function(){
-                if($("#selectUser").val() != "")
-                window.location.href="${pageContext.request.contextPath}/backstage/selectUser/"+$("#selectUser").val();
+            //彈窗
+            $(".hazy").hide();
+            $(".cat").hide();
+            // 關閉按紐
+            $('.catReturn').click(function () {
+                $(".hazy").hide();
+                $(".cat").hide();
+            });
+            //取得選取會員資料
+            function user(userId) {
+                $(".detailTable").empty();
+                $(".hazy").show();
+                $(".cat").show();
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/backstage/userDetail/" + userId,
+                    type: "get",
+                    success: function (J) {
+                        console.log(J);
+                        var sell = 0;
+                        $(".detailTable").append('<div class="col-lg-3">&nbsp;</div><div class="col-lg-9"></div>'+
+                                '<div class="col-lg-3">編號:</div><div class="col-lg-9">'+J.userid +'</div>'+
+                                '<div class="col-lg-3">firstname:</div><div class="col-lg-9">'+J.firstname+'</div>'+
+                                '<div class="col-lg-3">lastname:</div><div class="col-lg-9">'+J.lastname+'</div>'+
+                                '<div class="col-lg-3">電話:</div><div class="col-lg-9">'+J.phone+'</div>'+
+                                '<div class="col-lg-3">email:</div><div class="col-lg-9">'+J.email+'</div>'+                                
+                                '<div class="col-lg-3">公司:</div><div class="col-lg-9">'+J.company+'</div>'+
+                                '<div class="col-lg-3">order_name:</div><div class="col-lg-9">'+J.order_name+'</div>'+
+                                '<div class="col-lg-3">order_address:</div><div class="col-lg-9">'+J.order_address+'</div>'+
+                                '<div class="col-lg-3">order_postalcode:</div><div class="col-lg-9">'+J.order_postalcode+'</div>'+
+                                '<div class="col-lg-3">order_email:</div><div class="col-lg-9">'+J.order_email+'</div>'+
+                                '<div class="col-lg-3">order_phone:</div><div class="col-lg-9">'+J.order_phone+'</div>'+
+                                '<div class="col-lg-3">message:</div><div class="col-lg-9">'+J.message+'</div>');
+                    },
+                    error: doError
+                });
+            };
+            function doError(json) {
+                console.log("error ajax");
+            }
+            //彈窗結束
+            $("#buttonaddon2").on("click", function () {
+                if ($("#selectUser").val() != "")
+                    window.location.href = "${pageContext.request.contextPath}/backstage/selectUser/" + $("#selectUser").val();
             })
-            function order(userId){
-                window.location.href="${pageContext.request.contextPath}/backstage/selectOrder/"+userId;
+            function order(userId) {
+                window.location.href = "${pageContext.request.contextPath}/backstage/selectOrder/" + userId;
             }
             //按回車
-			$("#selectUser").keydown(function(e){	            
-                if($("#selectUser").val() != "")			
-				if(e.keyCode== 13)window.location.href = "${pageContext.request.contextPath}/backstage/selectUser/"+$("#selectUser").val();				
-			})
+            $("#selectUser").keydown(function (e) {
+                if ($("#selectUser").val() != "")
+                    if (e.keyCode == 13) window.location.href = "${pageContext.request.contextPath}/backstage/selectUser/" + $("#selectUser").val();
+            })
+
         </script>
 
         </html>

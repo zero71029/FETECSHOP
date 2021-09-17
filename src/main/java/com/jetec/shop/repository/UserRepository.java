@@ -13,8 +13,8 @@ public interface UserRepository extends JpaRepository<UserBean, Integer>{
 	boolean existsByEmail(String email);
 	boolean existsByFirstname(String Firstname);
 	boolean existsByLastname(String Lastname);
-	UserBean findByEmail(String email);
-	List<UserBean> findByPhone(String phone);
+	UserBean findByEmail(String email);	
+	UserBean findByPhone(String phone);
 	List<UserBean> findByFirstname(String Firstname);
 	List<UserBean> findByLastname(String Lastname);
 	

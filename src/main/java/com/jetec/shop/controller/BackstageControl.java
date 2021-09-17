@@ -335,19 +335,14 @@ public class BackstageControl {
 			if (userRepository.existsById(AAA)) {
 				userList.add(userRepository.getById(AAA));
 			}
-
-
-
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		if (userRepository.existsByPhone(userId)) {
-			for (UserBean b : userRepository.findByPhone(userId)) {
-				userList.add(b);
-			}
+		if (userRepository.existsByPhone(userId)) {			
+				userList.add(userRepository.findByPhone(userId));			
 		}
-		if (userRepository.existsByEmail(userId)) {				
-				userList.add(userRepository.findByEmail(userId));				
+		if (userRepository.existsByEmail(userId)) {
+			userList.add(userRepository.findByEmail(userId));
 		}
 		if (userRepository.existsByFirstname(userId)) {
 			for (UserBean b : userRepository.findByFirstname(userId)) {
@@ -359,13 +354,19 @@ public class BackstageControl {
 				userList.add(b);
 			}
 		}
-
-		if (userList == null)
-			System.out.println(userId);
-
 		model.addAttribute("userList", userList);
 		System.out.println(userList);
 		return "/backstage/userList";
+	}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+//會員細節
+	@RequestMapping("/userDetail/{userId}")
+	@ResponseBody
+	public UserBean userDetail(@PathVariable("userId") Integer userId) {
+		System.out.println("*****會員細節*****"  );
+		System.out.println(userRepository.getById(userId));
+		return userRepository.getById(userId);
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -170,6 +170,7 @@ public class UserControl {
 //	        // 判斷電話
 		if (action != null && action.equals("phoneLogin")) {
 			if (userRepository.existsByPhone(bean.getPhone())) {
+				
 				UserBean dataBean = userRepository.findByPhone(bean.getPhone());
 
 				if (!BCrypt.checkpw(bean.getPassword(), dataBean.getPassword())) {

@@ -345,7 +345,7 @@
 			function searchProduct() {
 				window.location.href = "${pageContext.request.contextPath}/searchProduct/" + $(".searchProduct").val();
 			}
-
+			//按回車
 			$(".search").keydown(function(e){				
 				if(e.keyCode== 13)window.location.href = "${pageContext.request.contextPath}/searchProduct/" + $(".searchProduct").val();
 				

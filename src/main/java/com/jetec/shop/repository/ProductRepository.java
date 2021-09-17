@@ -15,12 +15,14 @@ import com.jetec.shop.model.ProductBean;
 
 public interface ProductRepository extends JpaRepository<ProductBean, Integer>{
 	
-	Page<ProductBean> findByProductstatus(String state,Pageable pageable);
+	List<ProductBean> findByProductstatus(String state);
 	ProductBean findByModel(String model);
 	boolean existsByModel(String model);
+	List<ProductBean> findByNameLikeIgnoreCaseAndProductstatus(String name,String state);
+	List<ProductBean> findByModelLikeIgnoreCaseAndProductstatus(String model,String state);
+	Page<ProductBean> findByProductstatusAndType(String state,Integer type,Pageable pageable);
 	List<ProductBean> findByNameLikeIgnoreCase(String name);
 	List<ProductBean> findByModelLikeIgnoreCase(String model);
-	Page<ProductBean> findByProductstatusAndType(String state,Integer type,Pageable pageable);
 	boolean existsByType(Integer type);
 
 

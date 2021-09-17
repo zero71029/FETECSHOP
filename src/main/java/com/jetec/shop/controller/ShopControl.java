@@ -638,14 +638,14 @@ public class ShopControl {
 			System.out.println(Integer.parseInt(product));
 		} catch (Exception e) {
 //不是數字 搜索貨號
-			 list = productRepository.findByModelLikeIgnoreCase("%" + product + "%");
+			 list = productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%","1");
 //搜不到貨號 用名稱搜索
 			if (list.isEmpty())
-				list = productRepository.findByNameLikeIgnoreCase("%" + product + "%");
+				list = productRepository.findByNameLikeIgnoreCaseAndProductstatus("%" + product + "%","1");
 			model.addAttribute("maxPage", list);
 			return "/shop/shopSort";
 		}
-		 list = productRepository.findByModelLikeIgnoreCase("%" + product + "%");
+		 list = productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%","1");
 //搜不到貨號 用ID搜索
 		if (list.isEmpty()) {
 			ProductBean productBean = backstageService.getProduct(Integer.parseInt(product));

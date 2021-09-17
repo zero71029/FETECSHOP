@@ -110,83 +110,9 @@
                 background-color: #afe3d5;
             }
 
-            .hazy {
-                visibility: hidden;
-                position: fixed;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0.5);
-                z-index: 40;
-
-            }
-
-            .cat {
-                border: blue 1px solid;
-                background-color: white;
-                width: 830px;
-                height: 450px;
-                z-index: 50;
-                position: absolute;
-                left: 0%;
-                right: 0%;
-                margin: auto;
-                top: 150px;
-                border-radius: 15px;
-                visibility: hidden;
-
-            }
-
-            .cat p {
-                position: relative;
-                text-align: right;
-                right: 100px;
-            }
-
-            .cat form {
-                top: 10px;
-                position: relative;
-                left: 20px;
-            }
-
-            .cat input {
-                width: 95%;
-            }
-
-            .cat select {
-                width: 95%;
-            }
-
-            /* 購物車返回 */
-            .catReturn {
-                top: -10px;
-                right: -10px;
-                position: absolute;
-                background-color: red;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                z-index: 20;
-            }
         </style>
 
         <body>
-            <!-- <%-- 彈窗--%> -->
-            <div class="hazy"></div>
-            <div class="cat">
-                <button class="catReturn">X</button>
-                <br>
-                <div class="row">
-                    <div class="input-group mb-3" style="width: 95%; padding-left: 50px;">
-                        <input type="text" class="form-control" placeholder="ID or 名稱 or 貨號"
-                            aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="selectProduct">搜索</button>
-                    </div>
-                </div>
-            </div>
-            <!-- <%-- 彈窗/////////////////////////////////////--%> -->
-
-
-
 
             <!-- <%-- 頁首--%> -->
             <header class="container-fluid mainColor headtop">
@@ -214,6 +140,13 @@
                                     onclick="javascript:location.href='${pageContext.request.contextPath}/backstage/product?pag=1&state=2'">下架商品</label>
                             </div>
                         </div> <!-- <%-- 抬頭按鈕--%> -->
+                        <div class="col-lg-5">
+                            <div class="input-group mb-3" style="width: 95%; padding-left: 50px;">
+                                <input type="text" class="form-control" placeholder="ID or 名稱 or 貨號"
+                                    aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-secondary" type="button" id="selectProduct">搜索</button>
+                            </div>
+                        </div>
                         <!-- //中間表格 -->
                         <div class="row">
                             <table class="Table table-striped orderTable">
@@ -249,20 +182,13 @@
 
         </body>
         <script>
-            // 關閉按紐
-            $('.catReturn').click(function () {
-                $(".hazy").css("visibility", "hidden");
-                $(".cat").css("visibility", "hidden");
-            });
 
+            // 商品搜索
             $("#selectProduct").on("click", function () {
                 $(".form-control").val();
                 window.location.href = "${pageContext.request.contextPath}/backstage/selectProduct/" + $(".form-control").val();
             })
-            function sta() {
-                $(".hazy").css("visibility", "visible");
-                $(".cat").css("visibility", "visible");
-            }
+
         </script>
 
 

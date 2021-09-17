@@ -125,9 +125,9 @@ public class BackstageControl {
 	@RequestMapping("/product")
 	public String productList(Model model, @RequestParam("pag") Integer p, @RequestParam("state") String state) {
 		System.out.println("*****讀取商品資訊 *****");
-//		Page<ProductBean> page = productRepository.findByProductstatus(state, PageRequest.of(p - 1, 20));
-//		List<ProductBean> result = page.getContent();
-		List<ProductBean> result = productRepository.findAll();
+
+		List<ProductBean> result = productRepository.findByProductstatus(state);
+//		List<ProductBean> result = productRepository.findAll();
 		model.addAttribute("productList", result);
 		return "/backstage/productList";
 	}
@@ -327,13 +327,43 @@ public class BackstageControl {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //會員查詢
 	@RequestMapping("/selectUser/{userId}")
-	public String selectUser(Model model, @PathVariable("userId") Integer userId) {
+	public String selectUser(Model model, @PathVariable("userId") String userId) {
 		System.out.println("*****會員查詢*****");
 		List<UserBean> userList = new ArrayList<UserBean>();
-		if (userRepository.existsById(userId)) {
-			userList.add(userRepository.getById(userId));
-			model.addAttribute("userList", userList);
+		try {
+			int AAA = Integer.parseInt(userId);
+			if (userRepository.existsById(AAA)) {
+				userList.add(userRepository.getById(AAA));
+			}
+
+
+
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+		if (userRepository.existsByPhone(userId)) {
+			for (UserBean b : userRepository.findByPhone(userId)) {
+				userList.add(b);
+			}
+		}
+		if (userRepository.existsByEmail(userId)) {				
+				userList.add(userRepository.findByEmail(userId));				
+		}
+		if (userRepository.existsByFirstname(userId)) {
+			for (UserBean b : userRepository.findByFirstname(userId)) {
+				userList.add(b);
+			}
+		}
+		if (userRepository.existsByLastname(userId)) {
+			for (UserBean b : userRepository.findByLastname(userId)) {
+				userList.add(b);
+			}
+		}
+
+		if (userList == null)
+			System.out.println(userId);
+
+		model.addAttribute("userList", userList);
 		System.out.println(userList);
 		return "/backstage/userList";
 	}
@@ -635,8 +665,8 @@ public class BackstageControl {
 //搜索訂單
 	@RequestMapping("/findOrder/{orderId}")
 	public String findOrder(Model model, @PathVariable("orderId") Integer orderId) {
-		System.out.println("*****搜索訂單*****" );
-		List<OrderBean> list = new ArrayList<OrderBean>();		
+		System.out.println("*****搜索訂單*****");
+		List<OrderBean> list = new ArrayList<OrderBean>();
 		list.add(orderRepository.getById(orderId));
 		model.addAttribute("orderList", list);
 		return "/backstage/order";

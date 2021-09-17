@@ -114,7 +114,7 @@
                                     <input type="text" class="form-control" placeholder="會員ID"
                                         aria-label="Recipient's username" aria-describedby="button-addon2"
                                         id="selectUser">
-                                    <button class="btn btn-outline-secondary" type="button"
+                                    <button class="btn btn-outline-secondary search" type="button"
                                         id="buttonaddon2">搜索</button>
                                 </div>
                             </div>
@@ -161,6 +161,11 @@
             function order(userId){
                 window.location.href="${pageContext.request.contextPath}/backstage/selectOrder/"+userId;
             }
+            //按回車
+			$("#selectUser").keydown(function(e){	            
+                if($("#selectUser").val() != "")			
+				if(e.keyCode== 13)window.location.href = "${pageContext.request.contextPath}/backstage/selectUser/"+$("#selectUser").val();				
+			})
         </script>
 
         </html>

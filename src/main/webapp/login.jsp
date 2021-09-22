@@ -7,15 +7,6 @@
 			<meta charset="UTF-8">
 			<meta http-equiv="X-UA-Compatible" content="IE=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-			<!-- bootstrap的CSS、JS樣式放這裡  -->
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.rtl.min.css">
-			<!-- <%-- jQuery放這裡 --%> -->
-			<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.js"></script>
-			<!-- <%-- Header的CSS、JS樣式放這裡    --%> -->
-			<!-- <%-- footer的CSS、JS樣式放這裡    --%> -->
 			<!-- <%-- 主要的CSS、JS放在這裡--%> -->
 			<link rel="preconnect" href="https://fonts.gstatic.com">
 			<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
@@ -24,6 +15,7 @@
 				content="849367464998-0c4najofsqmh3rteejq2dc3va9iqdps2.apps.googleusercontent.com">
 			<!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeXNhobAAAAALNu0-Dr6ALnwTk8WLYsEsS8NNam"async defer></script> -->
 			<script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+
 
 
 			<title>Login</title>
@@ -178,29 +170,30 @@
 						<div class="loginTitle">Login</div>
 						<!-- <button class="loginReturn" onclick=window.location.href="/OceanCatHouse">X</button> -->
 
-						<form action="/JETEC/signup/login" method="POST">
+						<form action="${pageContext.request.contextPath}/signup/login" method="POST" >
 							<span class="spanCSS">Email Address</span>
-							<input class="formCSS" type="email" placeholder='${errors.email}' name="email"
-								value="${email}" id="e">
+							<input class="form-control formCSS" type="email" placeholder='${errors.email}' name="email" maxlength="50"
+								value="${email}" id="e" required>
 							<span class="spanCSS">Password</span>
-							<input class="formCSS" type="password" placeholder="${errors.userpassword}" name="password"
-								value="${password}" id="p">
+							<input class="formCSS" type="password" placeholder="${errors.userpassword}" name="password" maxlength="100"
+								value="${password}" id="p" required>
 							<button type="button" id="autologin" style="width: 5px; height: 3px"></button>
 
 							<div class="g-recaptcha" data-sitekey="6LdUNRobAAAAAJJakDhDglshLFmwJP1P2c12MBdP"
-								data-callback='verifyCallback' data-action='ubmit'>Submit</div>
+								data-callback='verifyCallback' data-action='ubmit' >Submit</div>
 							<span class="error checkerror">${errors.recaptcha}</span><br>
 							<span class="spanCSS"><a href="${pageContext.request.contextPath}/forget.jsp">Forgot your
 									password?</a></span><br><br>
 							<input class="formSubmit" type="submit" value="Login">
 
 						</form>
-
-						<div class='orblock'>
+						
+						
+						<!-- <div class='orblock'>
 							<hr>
 							<span> 或是 </span>
 							<hr>
-						</div>
+						</div> -->
 					</div>
 				</div>
 

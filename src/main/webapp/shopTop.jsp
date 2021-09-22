@@ -160,11 +160,11 @@
 					<!-- search -->
 					<div class="col-lg-6 search">
 						<div class="input-group mb-3">
-							<input type="text" class="form-control searchProduct" placeholder="商品搜索"
+							<input type="text" class="form-control searchProduct" placeholder="Product Search"
 								aria-label="Recipient's username" aria-describedby="button-addon2">
 							<button class="btn btn-outline-secondary" type="button" id="button-addon2"
 								style="background-color: #ff703E;color: white;"
-								onclick="searchProduct()">search</button>
+								onclick="searchProduct()"><img src="${pageContext.request.contextPath}/images/search.png" alt="search"></button>
 						</div>
 					</div>
 					<!-- search 結束-->

@@ -45,10 +45,10 @@
             <a href="${pageContext.request.contextPath}/searchProduct/FS"><img src="${pageContext.request.contextPath}/images/Manifold BAnner.jpg" alt=""></a>
         </div>
         <!-- <div class="row Product">
-            <a href="/JETEC/shopSort"><img src="${pageContext.request.contextPath}/images/banner_2.png" alt=""></a>
+            <a href="${pageContext.request.contextPath}/shopSort"><img src="${pageContext.request.contextPath}/images/banner_2.png" alt=""></a>
         </div>
         <div class="row Product">
-            <a href="/JETEC/shopSort"><img src="${pageContext.request.contextPath}/images/banner_3.png" alt=""></a>
+            <a href="${pageContext.request.contextPath}/shopSort"><img src="${pageContext.request.contextPath}/images/banner_3.png" alt=""></a>
         </div> -->
 
 

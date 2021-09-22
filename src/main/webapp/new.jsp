@@ -16,8 +16,7 @@
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.rtl.min.css">
 			<!-- <%-- jQuery放這裡 --%> -->
 			<script src="${pageContext.request.contextPath}/js/jquery-3.4.1.js"></script>
-			<!-- <%-- Header的CSS、JS樣式放這裡    --%> -->
-			<!-- <%-- footer的CSS、JS樣式放這裡    --%> -->
+
 			<!-- <%-- 主要的CSS、JS放在這裡--%> -->
 
 			<title>Document</title>

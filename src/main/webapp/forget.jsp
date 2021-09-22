@@ -7,15 +7,6 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-            <!-- bootstrap的CSS、JS樣式放這裡  -->
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.rtl.min.css">
-            <!-- <%-- jQuery放這裡 --%> -->
-            <script src="${pageContext.request.contextPath}/js/jquery-3.4.1.js"></script>
-            <!-- <%-- Header的CSS、JS樣式放這裡    --%> -->
-            <!-- <%-- footer的CSS、JS樣式放這裡    --%> -->
             <!-- <%-- 主要的CSS、JS放在這裡--%> -->
             <link rel="preconnect" href="https://fonts.gstatic.com">
             <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
@@ -23,9 +14,8 @@
             <meta name="google-signin-client_id"
                 content="849367464998-0c4najofsqmh3rteejq2dc3va9iqdps2.apps.googleusercontent.com">
             <!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LeXNhobAAAAALNu0-Dr6ALnwTk8WLYsEsS8NNam"async defer></script> -->
-            <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
-            <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"> -->
-            <title>Document</title>
+            <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>            
+            <title>forget</title>
         </head>
         <style>
             .main {
@@ -176,8 +166,8 @@
                         <!-- <button class="loginReturn" onclick=window.location.href="/OceanCatHouse">X</button> -->
 
                         <form action="${pageContext.request.contextPath}/forget" method="POST">
-                            <input style='height:45px;' class="formCSS" type="email" placeholder="Email" name="email"
-                                value="${email}"><br>
+                            <input style='height:45px;' class="formCSS" type="email" placeholder="Email" name="email" maxlength="50"
+                                value="${email}" required><br>
                             <span class="error">${errors.email}</span><br><br>
                             <div class="g-recaptcha" data-sitekey="6LdUNRobAAAAAJJakDhDglshLFmwJP1P2c12MBdP"
                                 data-callback='verifyCallback' data-action='ubmit'>google</div>

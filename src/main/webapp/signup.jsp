@@ -135,29 +135,29 @@
 						<br><br>
 						<form action="${pageContext.request.contextPath}/signup/signup" method="POST" class="accout">
 							<div><span>Email Address</span><span style="color: red; ">${errors.emails}</span>
-								<input class="formCSS" type="email" placeholder="${errors.email}" name="email"
-									value="${email}">
+								<input class="formCSS" type="email" placeholder="${errors.email}" name="email" maxlength="50"
+									value="${email}" required>
 							</div>
 							<span>First name</span>
-							<input class="formCSS" type="text" placeholder='${errors.firstname}' name="firstname"
-								value="${userfirstname}">
+							<input class="formCSS" type="text" placeholder='${errors.firstname}' name="firstname" maxlength="50"
+								value="${userfirstname}" required>
 							<br>
 							<span>Last name</span>
-							<input class="formCSS" type="text" placeholder='${errors.lastname}' name="lastname"
-								value="${userlastname}">
+							<input class="formCSS" type="text" placeholder='${errors.lastname}' name="lastname" maxlength="50"
+								value="${userlastname}" required>
 
 
 							<span>Company name(optional)</span>
-							<input class="formCSS" type="text" placeholder="" name="company" value="${company}">
+							<input class="formCSS" type="text" placeholder="" name="company" value="${company}" maxlength="100">
 							<span>phone</span>
-							<input class="formCSS" type="text" placeholder="${errors.userphone}" name="phone"
-								value="${userphone}">
+							<input class="formCSS" type="text" placeholder="${errors.userphone}" name="phone" maxlength="11"
+								value="${userphone}" required>
 
 							<span>Password</span>
-							<input class="formCSS pass" type="password" placeholder="${errors.userpassword}"
-								name="password" value="${userpassword}">
+							<input class="formCSS pass" type="password" placeholder="${errors.userpassword}" maxlength="100"
+								name="password" value="${userpassword}" required>
 							<span>Password Confirmation</span><span class="verifypassword"></span>
-							<input class="formCSS verify" type="password" placeholder="" name="verifypassword">
+							<input class="formCSS verify" type="password" placeholder="" name="verifypassword" maxlength="100" required>
 							<br>
 							<span style="color: red; ">${errors.recaptcha}</span>
 							<div class="g-recaptcha" data-sitekey="6LdUNRobAAAAAJJakDhDglshLFmwJP1P2c12MBdP"

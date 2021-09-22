@@ -4,8 +4,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.jetec.shop.controller.CartFilter;
-
 @Configuration
 public class config {	
     @Bean
@@ -27,6 +25,17 @@ public class config {
         //添加不过滤路径
         registrationBean.addInitParameter("noFilter","/,/two");
         registrationBean.setName("CartFilter");
+        registrationBean.setOrder(1);
+        return registrationBean;
+    }
+    @Bean
+    public FilterRegistrationBean filterBack(){
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(new BackFilter());
+        //过滤路径
+        registrationBean.addUrlPatterns("/backstage/*");
+        //添加不过滤路径
+        registrationBean.addInitParameter("noFilter","/backstage/time.jsp");
+        registrationBean.setName("BackFilter");
         registrationBean.setOrder(1);
         return registrationBean;
     }

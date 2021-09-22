@@ -19,16 +19,59 @@
             <!-- <%-- Header的CSS、JS樣式放這裡    --%> -->
             <!-- <%-- footer的CSS、JS樣式放這裡    --%> -->
             <!-- <%-- 主要的CSS、JS放在這裡--%> -->
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
+            <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css"> -->
             <title>Document</title>
         </head>
         <style>
-            /* div {
-                border: 2px solid black;
-            } */
+            div {
+                /* border: 2px solid black; */
+            }
+
+            .center {
+                background: linear-gradient(to bottom, #88c8eb, white);
+                background: -webkit-gradient(​linear, to bottom, #88c8eb, white);
+            }
+
             .tex {
                 position: relative;
                 left: 10%;
+            }
+
+            #canvas {
+                position: absolute;
+            }
+
+            .main {
+                padding-top: 50px;
+            }
+
+            .main .grid-row {
+                border: 1px solid black;
+                position: relative;
+                background-color: white;
+                border-radius: 5px;
+            }
+
+            .main .grid-row .loginTitle {
+                font-size: 30px;
+                margin: 0 auto 0 auto;
+                text-align: center;
+            }
+
+            .main .grid-row form {
+                position: relative;
+            }
+
+
+
+            .main .grid-row .formCSS {
+                width: 75%;
+                margin: 0 0 30px 10%;
+                border-radius: 5px;
+                line-height: 35px;
+                height: 35px;
+                text-indent: 0.5rem;
+                border: 1px solid #ddd;
             }
 
             .main .grid-row span {
@@ -37,21 +80,11 @@
 
             .main .grid-row {
                 top: 100px;
+
                 right: 0%;
                 left: 0%;
                 margin: auto;
             }
-            .main .grid-row .formSubmit {
-				margin: 0 0 30px 10%;
-				padding: 1px 25px;
-				font-size: 18px;
-				background: #ff703e;
-				border: 1px solid #ff703e;
-				border-radius: 5px;
-				position: relative;
-				display: block;
-				color: white;
-			}
 
             /* .main .grid-row a{
                 color: blue;
@@ -65,31 +98,26 @@
 
                 <!-- 網頁中間內文 -->
                 <div class="main">
-                    <div class="grid-row" style="height: 500px; width: 700px;">
-                        <div class="loginTitle">${param.email} :密碼重設</div>   <br>                    
-                        <form action='${pageContext.request.contextPath}/resetPassword' method="post">
-                            <input class="formCSS" type="hidden" placeholder='Email' name="email" value="${param.email}"
-                                id="e">
-                            <input class="formCSS pass" type="password" placeholder="密碼" name="password" value="${password}"
-                                id="p">
-                            <input class="formCSS verify" type="password" placeholder="密碼確認" name="verifypassword">
-                            <span class="error verifypassword"></span>
-                           
-                            <span class="error">${errors.userpassword}</span>
-
-                            <br> <span class="error checkerror">${errors.recaptcha}</span>
-                            <br>
-                            <input class="formSubmit" type="button" value="確認">
-
-                        </form>
-
-
+                    <div class="grid-row" style="height: 300px; width: 700px;">
+                        <br>
+                        <div class="loginTitle">密碼重設</div><br>
+                        <div class="tex">我們已寄送一封電子郵件給 <span> ${email} </span> ,內含電子郵件密碼重設</div><br>
+                        <div class="tex">您有收到電子郵件?如果沒有,請檢查垃圾郵件</div>
                     </div>
                 </div>
 
             </div>
             <script>
-
+                // 紀錄從哪裡來到登錄頁面
+                // var come = document.referrer;
+                // 一鍵登入
+                $('#autologin').click(function () {
+                    $('#e').val("AAA@AAA.com");
+                    $('#p').val("AAA");
+                })
+                $(".phone").click(function () {
+                    window.location.href = "/OceanCatHouse/views/phoneLogin";
+                });
                 var x = [];
                 var y = [];
                 var d = [];//下落速度
@@ -125,37 +153,6 @@
                         if (x[i] > w) x[i] = 0;
                     }
                 }, 100);
-                // 密碼確認
-                $(".verify").on("keyup", function () {
-                    if ($(".verify").val() == $(".pass").val()) {
-                        $(".verifypassword").html("密碼正確");
-                        $(".verifypassword").css("color","blue");
-                    } else {
-                        $(".verifypassword").html("密碼確認錯誤"); 
-                        $(".verifypassword").css("color","red");                       
-                    }
-                })
-                $(".pass").on("keyup", function () {
-                    if ($(".verify").val() == $(".pass").val()) {
-                        $(".verifypassword").html("密碼正確");
-                        $(".verifypassword").css("color","blue");
-                    } else {
-                        $(".verifypassword").html("密碼確認錯誤"); 
-                        $(".verifypassword").css("color","red");                        
-                    }
-                })
-                // 送出按鈕
-                $(".formSubmit").click(function () {
-                    // 密碼確認
-                    if ($(".verify").val() == $(".pass").val() && $(".verify").val() != "") {
-                        $("form").submit();
-                    } else {
-                        $(".verifypassword").html("密碼確認錯誤");
-                    }
-                })
-
-
-
             </script>
 
         </body>

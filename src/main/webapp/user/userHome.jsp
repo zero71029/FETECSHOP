@@ -141,11 +141,11 @@
                                             <div class="insertData2">
                                                 Contact Name
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="50"
                                                     placeholder='${errors.firstname == null ? "First name":errors.firstname}'
                                                     value='${user.firstname == null ? null:user.firstname}'
                                                     name="firstname" id="firstname">
-                                                <input type="text"
+                                                <input type="text" maxlength="50"
                                                     placeholder='${errors.lastname == null? "Last name":errors.lastname}'
                                                     value='${user.lastname == null ? null:user.lastname}'
                                                     name="lastname" id="lastname">
@@ -155,7 +155,7 @@
                                             <div class="insertData">
                                                 Company Name
                                                 <hr>
-                                                <input type="text" placeholder=' '
+                                                <input type="text" placeholder=' ' maxlength="100"
                                                     value='${user.company == null ? null:user.company}' name="company"
                                                     id="company">
                                             </div>
@@ -164,7 +164,7 @@
                                             <div class="insertData">
                                                 Email Address
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="50"
                                                     placeholder='${errors.email == null ? "Email":errors.email}'
                                                     value='${user.email == null ? null:user.email}' name="email"
                                                     id="email">
@@ -174,7 +174,7 @@
                                             <div class="insertData">
                                                 聯絡電話
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="11"
                                                     placeholder='${errors.phone == null ? "Phone":errors.phone}'
                                                     value='${user.phone == null ? null:user.phone}' name="phone"
                                                     id="phone">
@@ -477,7 +477,7 @@
                                             <div class="insertData">
                                                 收件者姓名
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="100"
                                                     placeholder='${errors.order_name == null ? null:errors.order_name}'
                                                     value='${user.order_name == null ? null:user.order_name}'
                                                     name="order_name" id="order_name">
@@ -487,12 +487,12 @@
                                             <div class="insertData2">
                                                 收件者地址
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="255"
                                                     placeholder='${errors.order_address == null ? "address":errors.order_address}'
                                                     name="order_address"
                                                     value='${user.order_address == null ? null:user.order_address}'
                                                     id="order_address">
-                                                <input type="text"
+                                                <input type="text" maxlength="20"
                                                     placeholder='${errors.order_postalcode == null ? "postalcode":errors.order_postalcode}'
                                                     name="order_postalcode"
                                                     value='${user.order_postalcode == null ? null:user.order_postalcode}'
@@ -502,7 +502,7 @@
                                             <div class="insertData">
                                                 Email Address
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="100"
                                                     placeholder='${errors.order_email == null ? "Email":errors.order_email}'
                                                     value='${user.order_email == null ? null:user.order_email}'
                                                     name="order_email" id="order_email">
@@ -511,7 +511,7 @@
                                             <div class="insertData">
                                                 聯絡電話
                                                 <hr>
-                                                <input type="text"
+                                                <input type="text" maxlength="20"
                                                     placeholder='${errors.order_phone == null ? null:errors.order_phone}'
                                                     value='${user.order_phone == null ? null:user.order_phone}'
                                                     name="order_phone" id="order_phone">

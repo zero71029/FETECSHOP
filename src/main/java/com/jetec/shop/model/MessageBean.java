@@ -21,19 +21,25 @@ public class MessageBean {
 	private String company;
 	private String phone;
 	private String message;
-	private String reply;
+	private String reply;//回覆
 	private Date create_date;//日期;
 	private String product_model;
 	private String productType ;
 	private String industry ;
 	private String country;
 	private String state;
+    private String theme;//主旨
 	
 	
 	
 	
 	
-	
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
 	public String getState() {
 		return state;
 	}

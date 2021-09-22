@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -29,6 +31,7 @@ import com.jetec.shop.model.ProductBean;
 import com.jetec.shop.model.ProductOptionBean;
 import com.jetec.shop.model.ProductTypeBean;
 import com.jetec.shop.model.UserBean;
+import com.jetec.shop.repository.AdminRepository;
 import com.jetec.shop.repository.MessageRepository;
 import com.jetec.shop.repository.OrderDetailRepository;
 import com.jetec.shop.repository.OrderRepository;
@@ -62,6 +65,8 @@ public class BackstageControl {
 	ProductOptionRepository por;
 	@Autowired
 	ZeroTools zTools;
+	@Autowired
+	AdminRepository adminRepository;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// 訂單查詢
@@ -291,28 +296,28 @@ public class BackstageControl {
 		System.out.println("*****查詢商品*****" + product);
 		ProductBean productBean = null;
 		List<ProductBean> list = new ArrayList<ProductBean>();
-		//判斷數字
-				try {
-					// 搜索id
-					System.out.println(Integer.parseInt(product));
-					System.out.println(backstageService.getProduct(Integer.parseInt(product)));
-					productBean = backstageService.getProduct(Integer.parseInt(product));
-					list.add(productBean);
+		// 判斷數字
+		try {
+			// 搜索id
+			System.out.println(Integer.parseInt(product));
+			System.out.println(backstageService.getProduct(Integer.parseInt(product)));
+			productBean = backstageService.getProduct(Integer.parseInt(product));
+			list.add(productBean);
 
-				} catch (Exception e) {
+		} catch (Exception e) {
 
-				}
-				// 不是數字 搜索貨號
-				for (ProductBean p : productRepository.findByModelLikeIgnoreCase("%" + product + "%")) {
-					System.out.println(p);
-					list.add(p);
-				}
+		}
+		// 不是數字 搜索貨號
+		for (ProductBean p : productRepository.findByModelLikeIgnoreCase("%" + product + "%")) {
+			System.out.println(p);
+			list.add(p);
+		}
 
-				//搜不到貨號 用名稱搜索
-				for (ProductBean p : productRepository.findByNameLikeIgnoreCase("%" + product + "%")) {
-					if (null != p)
-						list.add(p);
-				}
+		// 搜不到貨號 用名稱搜索
+		for (ProductBean p : productRepository.findByNameLikeIgnoreCase("%" + product + "%")) {
+			if (null != p)
+				list.add(p);
+		}
 		model.addAttribute("productList", list);
 		return "/backstage/productList";
 	}
@@ -340,8 +345,8 @@ public class BackstageControl {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		if (userRepository.existsByPhone(userId)) {			
-				userList.add(userRepository.findByPhone(userId));			
+		if (userRepository.existsByPhone(userId)) {
+			userList.add(userRepository.findByPhone(userId));
 		}
 		if (userRepository.existsByEmail(userId)) {
 			userList.add(userRepository.findByEmail(userId));
@@ -366,7 +371,7 @@ public class BackstageControl {
 	@RequestMapping("/userDetail/{userId}")
 	@ResponseBody
 	public UserBean userDetail(@PathVariable("userId") Integer userId) {
-		System.out.println("*****會員細節*****"  );
+		System.out.println("*****會員細節*****");
 		System.out.println(userRepository.getById(userId));
 		return userRepository.getById(userId);
 	}
@@ -646,12 +651,53 @@ public class BackstageControl {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
 //修改儲存員工
-	@RequestMapping("saveAdmin")
-	public String saveAdmin(Model model, AdminBean adminBean) {
-		System.out.println("*****修改/儲存細節*****");
-		adminBean = backstageService.saveAdmin(adminBean);
-		model.addAttribute("admin", adminBean);
-		return "redirect:/backstage/admin/" + adminBean.getId();
+	@RequestMapping("saveAdmin")	
+	public String saveAdmin(Model model , AdminBean bean) {
+		System.out.println("*****修改/儲存員工細節*****");
+		System.out.println(bean);
+		// 接收資料
+		// 轉換資料
+		Map<String, String> errors = new HashMap<>();
+		model.addAttribute("errors", errors);
+		if(bean.getId()== null) {
+			if(adminRepository.existsByEmail(bean.getEmail())) {
+				errors.put("result", "eamil重複");
+			}
+		}
+
+		// 判斷欄位輸入
+		if (bean.getPhone() == null || bean.getPhone().length() == 0) {			
+				errors.put("phone", "沒有號碼");
+		}
+		if (bean.getEmail() == null || bean.getEmail().length() == 0) {
+			
+				errors.put("email", "沒有Email");
+		}
+		if (bean.getName() == null || bean.getName().length() == 0) {
+			
+				errors.put("name", "沒有Name");
+		}
+		if (bean.getAddress() == null || bean.getAddress().length() == 0) {
+		
+				errors.put("address", "沒有address");
+		}
+		if (bean.getPassword() == null || bean.getPassword().length() == 0) {
+			errors.put("password", "沒有密碼");
+		}
+
+		// 如果有錯 回原本頁面
+		if (errors != null && !errors.isEmpty()) {
+			System.out.println("errors");
+			model.addAttribute("admin", bean);
+			if(bean.getId()== null) {
+				return "/backstage/adminDetail";
+			}
+				return "/backstage/adminDetail";
+		}
+		AdminBean save =backstageService.saveAdmin(bean);
+		model.addAttribute("admin", save);
+		errors.put("result", "儲存成功");
+		return  "redirect:/backstage/admin";
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
@@ -673,46 +719,46 @@ public class BackstageControl {
 		OrderBean orderBean = new OrderBean();
 		try {
 			// 搜索id
-			if(orderRepository.existsById(Integer.parseInt(orderId)))
-			orderBean = orderRepository.getById(Integer.parseInt(orderId));
+			if (orderRepository.existsById(Integer.parseInt(orderId)))
+				orderBean = orderRepository.getById(Integer.parseInt(orderId));
 			list.add(orderBean);
 
 		} catch (Exception e) {
 
 		}
-		
+
 		// 用名稱搜索
 		for (OrderBean p : orderRepository.Ordename(orderId)) {
 			if (null != p)
 				list.add(p);
 		}
-		// 
+		//
 		for (OrderBean p : orderRepository.findByFirstname(orderId)) {
 			if (null != p)
 				list.add(p);
 		}
-		// 
+		//
 		for (OrderBean p : orderRepository.findByLastname(orderId)) {
 			if (null != p)
 				list.add(p);
 		}
-		// 
+		//
 		for (OrderBean p : orderRepository.findByCompany(orderId)) {
 			if (null != p)
 				list.add(p);
 		}
-		// 
+		//
 		for (OrderBean p : orderRepository.findByPhone(orderId)) {
 			if (null != p)
 				list.add(p);
 		}
-		// 
+		//
 		for (OrderBean p : orderRepository.findByOrderemail(orderId)) {
 			if (null != p)
 				list.add(p);
 		}
-		
-		if(list.isEmpty()) {
+
+		if (list.isEmpty()) {
 			System.out.println(list);
 		}
 
@@ -720,4 +766,6 @@ public class BackstageControl {
 		model.addAttribute("orderList", list);
 		return "/backstage/order";
 	}
+
+
 }

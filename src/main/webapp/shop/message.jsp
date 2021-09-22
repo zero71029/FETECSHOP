@@ -122,28 +122,28 @@
                                     <div class="row">
                                         <div class="col-lg-3">Contact Name:(必填)</div>
                                         <div class="col-lg-9 ">
-                                            <input type="text" name="firstname"
+                                            <input type="text" name="firstname" maxlength="35"
                                                     style="width: 49%;" placeholder='${errors.firstname == null ? "First name":errors.firstname}' value="${sessionScope.user == null ?firstname:user.firstname}">
-                                                    &nbsp;<input type="text" name="lastname"
+                                                    &nbsp;<input type="text" name="lastname" maxlength="35"
                                                     style="width: 49%;" placeholder='${errors.lastname == null? "Last name":errors.lastname}' value="${sessionScope.user == null ?lastname:user.lastname}">
                                             
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">Organization:</div>
-                                        <div class="col-lg-9"><input type="text" name="company" style="width: 99%;" placeholder='${errors.company}'
+                                        <div class="col-lg-9"><input type="text" name="company" style="width: 99%;" placeholder='${errors.company}' maxlength="70"
                                                 value="${sessionScope.user == null ?company:user.company}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3"> Contact Email:(必填)</div>
-                                        <div class="col-lg-9"><input type="email" name="email" style="width: 99%;" placeholder='${errors.email}'
+                                        <div class="col-lg-9"><input type="email" name="email" style="width: 99%;" placeholder='${errors.email}' maxlength="50"
                                                 value="${sessionScope.user == null ?email:user.email}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">Contact Phone:</div>
-                                        <div class="col-lg-9"><input type="text" name="phone" style="width: 99%;" placeholder='${errors.phone}'
+                                        <div class="col-lg-9"><input type="text" name="phone" style="width: 99%;" placeholder='${errors.phone}' maxlength="30"
                                                 value="${sessionScope.user == null ?phone:user.phone}">
                                         </div>
                                     </div>
@@ -426,20 +426,24 @@
                                 </div>
                                 <div class="row divBorder">
                                     <div class="col-lg-3">Product model:</div>
-                                    <div class="col-lg-9"><input type="text" name="product_model" style="width: 96%;"
+                                    <div class="col-lg-9"><input type="text" name="product_model" style="width: 96%;" maxlength="50"
                                             value="${product_model}">
                                     </div>
                                 </div>
-
                                 <br>
 
 
                                 <div class="row" style="background-color: #ff703E;">
                                     <span class="col-lg-10">你所遇到的技術問題狀況</span>
                                 </div>
+
                                 <div class="row divBorder">
+                                    <div class="col-lg-3">主旨:</div>
+                                    <div class="col-lg-9"><input type="text" name="theme" style="width: 96%;" maxlength="500"
+                                            value="${theme}">
+                                    </div>
                                     <div class="col-lg-3">message:</div>
-                                    <div class="col-lg-9"><br><textarea name="message" id="message"
+                                    <div class="col-lg-9"><br><textarea name="message" id="message" maxlength="9000"
                                             style="width: 96%; height: 150px;">${message}</textarea><br><br>
                                     </div>
                                 </div><br>
@@ -473,34 +477,34 @@
                             <div class="col-lg-10">基本資料</div>
                         </div>
                         <div class="row">
-                            <form action="${pageContext.request.contextPath}/message" method="post">
+                            <form action="${pageContext.request.contextPath}/message" method="post" class="needs-validation" novalidate>
                                 <div class="row divBorder">
                                     <div class="row">
                                         <div class="col-lg-3">Contact Name:(必填)</div>
                                         <div class="col-lg-9 ">
-                                            <input type="text" name="firstname"
+                                            <input type="text" name="firstname"  maxlength="35"
                                                     style="width: 49%;" placeholder='${errors.firstname == null ? "First name":errors.firstname}' value="${sessionScope.user == null ?firstname:user.firstname}">
                                             
-                                                    &nbsp;<input type="text" name="lastname"
+                                                    &nbsp;<input type="text" name="lastname" maxlength="35"
                                                     style="width: 49%;" placeholder='${errors.lastname == null? "Last name":errors.lastname}' value="${sessionScope.user == null ?lastname:user.lastname}">
                                             
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">Organization:</div>
-                                        <div class="col-lg-9"><input type="text" name="company" style="width: 99%;" placeholder='${errors.company}'
+                                        <div class="col-lg-9"><input type="text" name="company" style="width: 99%;" placeholder='${errors.company}' maxlength="70"
                                                 value="${sessionScope.user == null ?company:user.company}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3"> Contact Email:(必填)</div>
-                                        <div class="col-lg-9"><input type="email" name="email" style="width: 99%;" placeholder='${errors.email}'
+                                        <div class="col-lg-9"><input type="email" name="email" style="width: 99%;" placeholder='${errors.email}' maxlength="50"
                                                 value="${sessionScope.user == null ?email:user.email}">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-3">Contact Phone:</div>
-                                        <div class="col-lg-9"><input type="text" name="phone" style="width: 99%;" placeholder='${errors.phone}'
+                                        <div class="col-lg-9"><input type="text" name="phone" style="width: 99%;" placeholder='${errors.phone}'maxlength="30"
                                                 value="${sessionScope.user == null ?phone:user.phone}">
                                         </div>
                                     </div>
@@ -846,8 +850,12 @@
                                     <span class="col-lg-10">你所遇到的技術問題狀況</span>
                                 </div>
                                 <div class="row divBorder">
+                                    <div class="col-lg-3">主旨:</div>
+                                    <div class="col-lg-9"><input type="text" name="theme" style="width: 96%;" maxlength="500"
+                                            value="${theme}">
+                                    </div>
                                     <div class="col-lg-3">message:</div>
-                                    <div class="col-lg-9"><br><textarea name="message" id="message"
+                                    <div class="col-lg-9"><br><textarea name="message" id="message" maxlength="9000"
                                             style="width: 100%; height: 150px;">${message} </textarea><br><br>
                                     </div>
                                 </div><br>

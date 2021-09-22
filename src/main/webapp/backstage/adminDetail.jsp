@@ -39,6 +39,12 @@
                 margin: auto;
                 width: 40px;
             }
+            ${
+				errors==null ? null:".formCSS::placeholder{color: red;}"
+			}
+            .err{
+                color: red;
+            }
         </style>
 
         <body>
@@ -61,27 +67,29 @@
                             <div class="col-lg-1"></div>
                             <div class="col-lg-11">
                                 <br>
-                                <form action="${pageContext.request.contextPath}/backstage/saveAdmin" method="post">
+                                <form action="${pageContext.request.contextPath}/backstage/saveAdmin" method="post" class="upgroup">
 
                                     <input type="hidden" name="id" value="${admin.id}">
-                                    名稱 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="name" id=""
+                                    名稱 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="name"  placeholder="${errors.name}"
                                         value="${admin.name}"><br><br>
-                                    電話 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="phone" id=""
+                                    電話 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="phone"  placeholder="${errors.phone}"
                                         value="${admin.phone}"><br><br>
-                                    Email <input style="width: 80%;" type="text" name="email" id=""
+                                    Email <input style="width: 80%;" type="text" name="email"  placeholder="${errors.email}"
                                         value="${admin.email}"><br><br>
-                                    地址 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="address" id=""
+                                    地址 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="address" placeholder="${errors.address}"
                                         value="${admin.address}"><br><br>
-                                    密碼 &nbsp;&nbsp;<input style="width: 80%;" type="password" name="password" id=""
+                                    密碼 &nbsp;&nbsp;<input style="width: 80%;" type="password" name="password"  placeholder="${errors.password}"
                                         value="${admin.password}"><br><br>
-                                    職位 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="position" id=""
+                                    職位 &nbsp;&nbsp;<input style="width: 80%;" type="text" name="position" placeholder="${errors.position}"
                                         value="${admin.position}"><br><br>
                                     狀態 &nbsp;&nbsp;<select name="state" id="">
                                         <option value="1" ${admin.state==1 ? "selected" :""}>1在職</option>
                                         <option value="2" ${admin.state==2 ? "selected" :""}>2離職</option>
-                                    </select><br><br>
+                                    </select><br>
+                                    <span class="err"> ${errors.result}</span>
+                                   <br>
                                     創建日期:${admin.create_data} <br>
-                                    <button>修改/儲存</button>
+                                    <button >修改/儲存</button>
                                 </form>
                             </div>
                         </div>
@@ -89,5 +97,28 @@
                 </div>
             </div>
         </body>
+        <script>
+            //     function saveAdmin() {
+            //     var formData = new FormData($(".upgroup")[0]);
+            //     $.ajax({
+            //         url: '${pageContext.request.contextPath}/backstage/saveAdmin',//接受請求的Servlet地址
+            //         type: 'POST',
+            //         data: formData,
+            //         async: false,//同步請求
+            //         cache: false,//不快取頁面
+            //         contentType: false,//當form以multipart/form-data方式上傳檔案時，需要設定為false
+            //         processData: false,//如果要傳送Dom樹資訊或其他不需要轉換的資訊，請設定為false
+
+            //         success: function (json) {
+            //             alert(json);
+                      
+            //         },
+            //         error: function (returndata) {
+            //             console.log(returndata);
+
+            //         }
+            //     });
+             // }
+        </script>
 
         </html>

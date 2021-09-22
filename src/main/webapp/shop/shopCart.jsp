@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-lg-1" style="position: relative;">
                         <div style="height: 10%;"></div>
-                        <div class="con"><a href="/JETEC/delCart/${p.id}"><img class="garbage" src="${pageContext.request.contextPath}/images/garbage.png" alt=""></a></div>
+                        <div class="con"><a href="${pageContext.request.contextPath}/delCart/${p.id}"><img class="garbage" src="${pageContext.request.contextPath}/images/garbage.png" alt=""></a></div>
                     </div>
                 </div>
             </c:forEach>
@@ -170,7 +170,7 @@
             var cartnum;//商品數量
             //要求購物車資料        
             $.ajax({
-                url: "/JETEC/catData",
+                url: "${pageContext.request.contextPath}/catData",
                 type: "get",
                 async: false,
                 // dataType: "json",
@@ -282,6 +282,9 @@
                     }
                 });
             }
+            $(".continue").click(function(){
+                window.location.href="${pageContext.request.contextPath}/shop.jsp";
+            });
         </script>
 
 

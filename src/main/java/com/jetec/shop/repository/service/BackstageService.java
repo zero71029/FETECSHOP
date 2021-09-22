@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fasterxml.jackson.core.sym.Name;
 import com.jetec.shop.model.AdminBean;
 import com.jetec.shop.model.EmailBean;
 import com.jetec.shop.model.MessageBean;
@@ -221,14 +222,20 @@ public class BackstageService {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //員工儲存
-	public AdminBean saveAdmin(AdminBean adminBean) {
-		return adminRepository.save(adminBean);
+	public AdminBean saveAdmin(AdminBean adminBean) {		
+return adminRepository.save(adminBean);	
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //刪除pdf
 	public void delOption(Integer Optionid) {
 		productOptionRepository.deleteById(Optionid);
+	}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//後台登入
+	public AdminBean exAdmin(String email,String password) {	
+			return adminRepository.findByEmailAndPassword(email ,password);
 	}
 
 }

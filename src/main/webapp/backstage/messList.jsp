@@ -149,6 +149,7 @@
                         <table class="Table table-striped orderTable">
                             <tr>
                                 <td>留言編號</td>
+                                <td>主旨</td>
                                 <td>顧客</td>                                
                                 <td>日期</td>
                                 <td>回覆</td>
@@ -157,6 +158,7 @@
                                 <c:forEach varStatus="loop" begin="0" end="${mess.size()-1}" items="${mess}" var="s">
                                     <tr class="item" onclick="mess(${s.id})">
                                         <td>${s.id}</td>
+                                        <td>${s.theme}</td>
                                         <td>${s.firstname} ${s.lastname}</td>                                        
                                         <td>${s.create_date}</td>
                                         <td><button>回覆</button></td>

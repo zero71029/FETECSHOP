@@ -101,7 +101,6 @@ public class UserControl {
 			} else {
 				return action;
 			}
-
 		}
 		// 登入 判斷email,密碼是否正確
 		if (action != null && action.equals("login")) {
@@ -227,16 +226,19 @@ public class UserControl {
 		}
 		if (!bean.getEmail().contains("@"))
 			errors.put("email", "Email錯誤");
-
+		
+		if(!userRepository.existsByEmail(bean.getEmail())) {
+			errors.put("email", "查不到這個Email");
+		}
 		if (errors != null && !errors.isEmpty())
 			return "/forget";
 
 		// 寄發郵件
-		String text = "<p><a href='http://192.168.11.114:8080/JETEC/reset/" + bean.getEmail() + "'>從新設定密碼</a></p>";
+		String text = "<p><a href='http://192.168.11.114:8080/reset/" + bean.getEmail() + "'>從新設定密碼</a></p>";
 //		bean.setEmail("jeter.tony56@gmail.com");
 		String Subject = "從新設定密碼";//主題
 		zTools.mail(bean.getEmail(), text,Subject);
-		return "/register";
+		return "redirect:/forgetSend.jsp";
 	}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

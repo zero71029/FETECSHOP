@@ -11,8 +11,8 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
             <!-- bootstrap的CSS、JS樣式放這裡  -->
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.rtl.min.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-5.0.1-dist/css/bootstrap.min.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/bootstrap-5.0.1-dist/css/bootstrap.rtl.min.css">
 
 
         </head>

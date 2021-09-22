@@ -21,16 +21,23 @@ public class MessageInBean {
 	private String phone;
 	private String message;
 	private String country;
-	private String reply;
+	private String reply;//回覆
 	private Date create_date;//日期;
 	private String product_model;
 	private String productType ;
 	private String industry ;
 	private String otherQ;
 	private String orderIndustry;
+	private String theme;//主旨
 	
 	
 	
+	public String getTheme() {
+		return theme;
+	}
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
 	public String getCountry() {
 		return country;
 	}

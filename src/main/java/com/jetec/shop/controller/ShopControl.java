@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jetec.shop.Tools.ZeroTools;
+import com.jetec.shop.model.AdminBean;
 import com.jetec.shop.model.CartBean;
 import com.jetec.shop.model.EmailBean;
 import com.jetec.shop.model.MessageInBean;
@@ -179,10 +180,10 @@ public class ShopControl {
 		System.out.println("cart = " + cart);
 		// 檢查購物車是否為null
 		if (cart == null) {
-			return "redirect:/shopSort?ptype=1";
+			return "redirect:/shop.jsp";
 		}
 		if (cart.isEmpty() || cart.size() == 0)
-			return "redirect:/shopSort?ptype=1";
+			return "redirect:/shop.jsp";
 
 		// 呼叫catChange(cart) 做資料轉換
 		model.addAttribute("productList", catChange(cart));
@@ -638,8 +639,8 @@ public class ShopControl {
 		} catch (Exception e) {
 
 		}
-		//  搜索貨號
-		for (ProductBean p : productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%", "1")) {			
+		// 搜索貨號
+		for (ProductBean p : productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%", "1")) {
 			list.add(p);
 		}
 
@@ -667,7 +668,8 @@ public class ShopControl {
 	public String saveEmail(EmailBean bean) {
 		System.out.println(bean);
 		return backstageService.saveEmail(bean);
-
 	}
+
+
 
 }

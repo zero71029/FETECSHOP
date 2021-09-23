@@ -24,7 +24,6 @@ import com.jetec.shop.model.OrderDetail;
 import com.jetec.shop.model.ProductBean;
 import com.jetec.shop.model.ProductOptionBean;
 import com.jetec.shop.model.UserBean;
-import com.jetec.shop.repository.OrderDetailRepository;
 import com.jetec.shop.repository.OrderRepository;
 import com.jetec.shop.repository.ProductOptionRepository;
 import com.jetec.shop.repository.ProductRepository;
@@ -40,8 +39,7 @@ public class UserControl {
 	private OrderRepository orderRepository;
 	@Autowired
 	private ProductRepository productRepository;
-	@Autowired
-	private OrderDetailRepository orderDetailRepository;
+
 	@Autowired
 	private ProductOptionRepository por;
 

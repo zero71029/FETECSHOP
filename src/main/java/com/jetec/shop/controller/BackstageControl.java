@@ -651,35 +651,35 @@ public class BackstageControl {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
 //修改儲存員工
-	@RequestMapping("saveAdmin")	
-	public String saveAdmin(Model model , AdminBean bean) {
+	@RequestMapping("saveAdmin")
+	public String saveAdmin(Model model, AdminBean bean) {
 		System.out.println("*****修改/儲存員工細節*****");
 		System.out.println(bean);
 		// 接收資料
 		// 轉換資料
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
-		if(bean.getId()== null) {
-			if(adminRepository.existsByEmail(bean.getEmail())) {
+		if (bean.getId() == null) {
+			if (adminRepository.existsByEmail(bean.getEmail())) {
 				errors.put("result", "eamil重複");
 			}
 		}
 
 		// 判斷欄位輸入
-		if (bean.getPhone() == null || bean.getPhone().length() == 0) {			
-				errors.put("phone", "沒有號碼");
+		if (bean.getPhone() == null || bean.getPhone().length() == 0) {
+			errors.put("phone", "沒有號碼");
 		}
 		if (bean.getEmail() == null || bean.getEmail().length() == 0) {
-			
-				errors.put("email", "沒有Email");
+
+			errors.put("email", "沒有Email");
 		}
 		if (bean.getName() == null || bean.getName().length() == 0) {
-			
-				errors.put("name", "沒有Name");
+
+			errors.put("name", "沒有Name");
 		}
 		if (bean.getAddress() == null || bean.getAddress().length() == 0) {
-		
-				errors.put("address", "沒有address");
+
+			errors.put("address", "沒有address");
 		}
 		if (bean.getPassword() == null || bean.getPassword().length() == 0) {
 			errors.put("password", "沒有密碼");
@@ -689,15 +689,15 @@ public class BackstageControl {
 		if (errors != null && !errors.isEmpty()) {
 			System.out.println("errors");
 			model.addAttribute("admin", bean);
-			if(bean.getId()== null) {
+			if (bean.getId() == null) {
 				return "/backstage/adminDetail";
 			}
-				return "/backstage/adminDetail";
+			return "/backstage/adminDetail";
 		}
-		AdminBean save =backstageService.saveAdmin(bean);
+		AdminBean save = backstageService.saveAdmin(bean);
 		model.addAttribute("admin", save);
 		errors.put("result", "儲存成功");
-		return  "redirect:/backstage/admin";
+		return "redirect:/backstage/admin";
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
@@ -767,5 +767,13 @@ public class BackstageControl {
 		return "/backstage/order";
 	}
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//登出
+	@RequestMapping("/Signout")
+	public String Signout(HttpSession session) {
+		System.out.println("*****登出******");
+		session.invalidate();
+		return "redirect:/time.jsp";
+	}
 
 }

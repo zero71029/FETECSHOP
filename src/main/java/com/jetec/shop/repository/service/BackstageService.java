@@ -234,7 +234,7 @@ return adminRepository.save(adminBean);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //後台登入
-	public AdminBean exAdmin(String email,String password) {	
+	public AdminBean findAdmin(String email,String password) {	
 			return adminRepository.findByEmailAndPassword(email ,password);
 	}
 

@@ -24,6 +24,9 @@
       top :700px;
       
     }
+    .err{
+      color: red;
+    }
   </style>
 </head>
 <body>
@@ -32,9 +35,11 @@
 <script src="${pageContext.request.contextPath}/js/backstage/time.js"></script>
 
 <form action="${pageContext.request.contextPath}/home" method="post">
+  <span class="err">${errors.recaptcha}</span><br>
   <div class="g-recaptcha" data-sitekey="6LdUNRobAAAAAJJakDhDglshLFmwJP1P2c12MBdP"
   data-callback='verifyCallback' data-action='ubmit'>Submit</div>
   <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script><br>
+  <span class="err">${errors.result}</span><br>
   <input type="text" placeholder="帳號" name="email" value="AAA@AAA.com"><br>
   <input type="password" placeholder="密碼"name="password" value="AAA"><br>
   <input type="submit" value="登入">

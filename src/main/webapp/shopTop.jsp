@@ -130,18 +130,22 @@
 				color: #ff703E;
 
 			}
-			.SupportLevel{
+
+			.SupportLevel {
 				text-decoration: none;
-				text-align :center;
+				text-align: center;
 			}
-			.SupportLevel a{
+
+			.SupportLevel a {
 				text-decoration: none;
 				color: #000;
-			} 
+			}
+
 			.SupportLevel a:hover {
 				color: #ff703E;
 
 			}
+
 			/* 分類列表 結束*/
 		</style>
 
@@ -163,8 +167,8 @@
 							<input type="text" class="form-control searchProduct" placeholder="Product Search"
 								aria-label="Recipient's username" aria-describedby="button-addon2">
 							<button class="btn btn-outline-secondary" type="button" id="button-addon2"
-								style="background-color: #ff703E;color: white;"
-								onclick="searchProduct()"><img src="${pageContext.request.contextPath}/images/search.png" alt="search"></button>
+								style="background-color: #ff703E;color: white;" onclick="searchProduct()"><img
+									src="${pageContext.request.contextPath}/images/search.png" alt="search"></button>
 						</div>
 					</div>
 					<!-- search 結束-->
@@ -218,8 +222,11 @@
 					<div class="col-lg-2"></div>
 					<div class="col-lg-8 ">
 						<div class="row ProductSort">
-							<!-- 這裡有分類列表 ajax-->
-							<!-- <div class="col-lg-6 ProductLove2"></div> -->
+							<c:forEach varStatus="loop" begin="0" end="${love1.size()-1}" items="${love1}" var="s">
+								<div class="col-lg-4 love1">
+									<p type="button" class="" onclick="love2('${s}')">${s}</p>
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 					<div class=""></div>
@@ -229,7 +236,8 @@
 					<div class="col-lg-8 ">
 						<br>
 						<div class="row bal1 " style="cursor: pointer;">
-							<div class="col-lg-11 l1"><img src="${pageContext.request.contextPath}/images/mainmenu.png" alt="SSS" style="height: 21px;"> Main Menu</div>
+							<div class="col-lg-11 l1"><img src="${pageContext.request.contextPath}/images/mainmenu.png"
+									alt="SSS" style="height: 21px;"> Main Menu</div>
 						</div>
 						<hr style="color: #ff703E;opacity: 1;">
 						<div class="row l2">
@@ -242,13 +250,16 @@
 					<div class="col-lg-2"></div>
 					<div class="col-lg-8 ">
 						<br>
-						<div class="row" >
-							<div class="col-lg-6"><a href="${pageContext.request.contextPath}/shop/FAQ.jsp">Q&A</a></div>
-							<div class="col-lg-6"><a href="${pageContext.request.contextPath}/shop/message.jsp">Contact us</a></div>
+						<div class="row">
+							<div class="col-lg-6"><a href="${pageContext.request.contextPath}/shop/FAQ.jsp">Q&A</a>
+							</div>
+							<div class="col-lg-6"><a href="${pageContext.request.contextPath}/shop/message.jsp">Contact
+									us</a></div>
 						</div>
 					</div>
 					<div class=""></div>
 				</div>
+				<div class="roe "> </div>
 
 			</div>
 		</body>
@@ -293,32 +304,28 @@
 				$(".ProductLove2").hide();
 				$(".SupportLevel").hide();
 			})
-			$(".Support").click(function(){
+			$(".Support").click(function () {
 				$(".SupportLevel").toggle();
 				$(".ProductType").hide();
 				$(".ProductLove2").hide();
 			})
-
-
-
-
 			$(".ProductList").on("click", function () {
 				$(".ProductType").toggle();
 				$(".ProductLove2").hide();
 				$(".SupportLevel").hide();
-				$.ajax({
-					url: '${pageContext.request.contextPath}/shop/love1',//接受請求的Servlet地址
-					type: 'POST',
-					// async: false,
-					success: function (json) {
-						$(".ProductSort").empty();
-						for (var love1 of json)
-							$(".ProductSort").append('<div class="col-lg-4 love1">' +
-								'<p type="button" class=""  onclick="love2(`' + love1 + '`)">' + love1 + '</p>');
-					},
-					error: function (returndata) {
-					}
-				});
+				// $.ajax({
+				// 	url: '${pageContext.request.contextPath}/shop/love1',//接受請求的Servlet地址
+				// 	type: 'POST',
+				// 	// async: false,
+				// 	success: function (json) {
+				// 		$(".ProductSort").empty();
+				// 		for (var love1 of json)
+				// 			$(".ProductSort").append('<div class="col-lg-4 love1">' +
+				// 				'<p type="button" class=""  onclick="love2(`' + love1 + '`)">' + love1 + '</p>');
+				// 	},
+				// 	error: function (returndata) {
+				// 	}
+				// });
 			})
 			function love2(love1) {
 				$(".ProductLove2").toggle();
@@ -328,10 +335,9 @@
 					url: '${pageContext.request.contextPath}/shop/love2',//接受請求的Servlet地址
 					type: 'POST',
 					async: false,//同步請求
-					success: function (json) {						
+					success: function (json) {
 						for (var bean of json) {
 							if (bean.love1 == love1) {
-
 								$(".l2").append('<div class="col-lg-3 love2">' +
 									'<a	href="${pageContext.request.contextPath}/shopSort?ptype=' + bean.type + '&pag=1">' + bean.love2 + '</a><br></div>');
 							}
@@ -346,9 +352,9 @@
 				window.location.href = "${pageContext.request.contextPath}/searchProduct/" + $(".searchProduct").val();
 			}
 			//按回車
-			$(".search").keydown(function(e){				
-				if(e.keyCode== 13)window.location.href = "${pageContext.request.contextPath}/searchProduct/" + $(".searchProduct").val();
-				
+			$(".search").keydown(function (e) {
+				if (e.keyCode == 13) window.location.href = "${pageContext.request.contextPath}/searchProduct/" + $(".searchProduct").val();
+
 			})
 
 		</script>

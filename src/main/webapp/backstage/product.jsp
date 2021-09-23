@@ -128,11 +128,7 @@
         </style>
 
         <body>
-            <!-- <%-- 頁首--%> -->
-            <header class="container-fluid mainColor headtop">
-                <a href='${pageContext.request.contextPath}/backstage/shopBack.jsp' class='title'>商城後台</a>
-                <%-- <button class="userIcon"></button>--%>
-            </header>
+
 
 
             <!-- <%-- 插入側邊欄--%> -->
@@ -149,11 +145,11 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     品號&nbsp;${product.id} <br>
-                                    貨號&nbsp;<input type="text" name="model" id="" value="${product.model}"
+                                    貨號&nbsp;<input type="text" name="model"  value="${product.model}" maxlength="100" required
                                         placeholder="${errors.model}" class="err"><br>
-                                    名稱&nbsp;<input type="text" name="name" id="" value="${product.name}"
+                                    名稱&nbsp;<input type="text" name="name" value="${product.name}" maxlength="100" required
                                         placeholder="${errors.name}" class="err"><br>
-                                    類別&nbsp;<select name="type" id="">
+                                    類別&nbsp;<select name="type" >
                                         <c:forEach varStatus="loop" begin="0" end="${love1.size()-1}" items="${love1}"
                                             var="l">
                                             <optgroup label="${l}"></optgroup>
@@ -176,22 +172,22 @@
                                     <span class="errmodel">${errors.model2}</span>點擊數:${product.count}
                                 </div>
                                 <div class="col-md-4">
-                                    廠商&nbsp;<input type="text" name="" id="" value="${product.vendorid}"
+                                    廠商&nbsp;<input type="text" name=""  value="${product.vendorid}" maxlength="100"
                                         placeholder="目前還沒用"><br>
-                                    XX&nbsp;<input type="text" name="" id="" value="" placeholder="目前還沒用"><br>
-                                    XX&nbsp;<input type="text" name="" id="" value="" placeholder="目前還沒用"><br>
-                                    XX&nbsp;<input type="text" name="" id="" value="" placeholder="目前還沒用"><br>
+                                    中文名稱&nbsp;<input type="text" name="cname"  value="${product.cname}" placeholder="中文名稱" style="width: 84%;" maxlength="100"><br>
+                                    XX&nbsp;<input type="text" name="" value="" placeholder="目前還沒用"><br>
+                                    XX&nbsp;<input type="text" name=""  value="" placeholder="目前還沒用"><br>
 
                                 </div>
 
                                 <div class="col-md-4">
                                     <c:if test="${product.psb == null}">
-                                        庫存&nbsp;<input type="number" name="quantity" id="" value="${product.quantity}"
+                                        庫存&nbsp;<input type="number" name="quantity"  value="${product.quantity}" required
                                             class="err" placeholder="${errors.quantity}"><br>
-                                        進價&nbsp;<input type="number" name="purchaseprice" id=""
+                                        進價&nbsp;<input type="number" name="purchaseprice" required
                                             value="${product.purchaseprice}" class="err"
                                             placeholder="${errors.purchaseprice}"><br>
-                                        售價&nbsp;<input type="number" name="sellprice" id="" value="${product.sellprice}"
+                                        售價&nbsp;<input type="number" name="sellprice" value="${product.sellprice}" required
                                             class="err" placeholder="${errors.sellprice}"><br>
                                         </select><br>
                                     </c:if>
@@ -246,22 +242,22 @@
                                 <div class="psb">
                                     <div class="input-group" style="height: 200px;" name="producttext">
                                         <span class="input-group-text">描述</span>
-                                        <textarea class="form-control err" aria-label="With textarea" name="producttext"
+                                        <textarea class="form-control err" aria-label="With textarea" name="producttext" maxlength="1400"
                                             placeholder="${errors.producttext}">${product.producttext}</textarea>
                                     </div>
                                     <c:if test="${product.psb != null}">
                                         <c:forEach varStatus="loop" begin="0" end="${product.psb.size()-1}"
                                             items="${product.psb}" var="p">
-                                            <input type="hidden" name="psb[${loop.index}].specification"
+                                            <input type="hidden" name="psb[${loop.index}].specification" 
                                                 value="${p.specification}">
                                             <input type="hidden" name="psb[${loop.index}].id" value="${product.id}">
-                                            特點${loop.index}&nbsp;<input type="text" name="psb[${loop.index}].sptext"
-                                                id="" value="${p.sptext}" placeholder=""><br>
+                                            特點${loop.index}&nbsp;<input type="text" name="psb[${loop.index}].sptext" maxlength="500"
+                                                 value="${p.sptext}" placeholder=""><br>
                                         </c:forEach>
                                     </c:if>
 
                                     <c:if test="${product.psb == null}">
-                                        <input type="hidden" name="psb[0].specification"
+                                        <input type="hidden" name="psb[0].specification" 
                                             value="${product.psb[0].specification}">
                                         <input type="hidden" name="psb[1].specification"
                                             value="${product.psb[1].specification}">
@@ -285,21 +281,21 @@
                                         <input type="hidden" name="psb[5].id" value="${product.id}">
                                         <input type="hidden" name="psb[6].id" value="${product.id}">
                                         <input type="hidden" name="psb[7].id" value="${product.id}">
-                                        特點0&nbsp;<input type="text" name="psb[0].sptext" id=""
+                                        特點0&nbsp;<input type="text" name="psb[0].sptext"  maxlength="500"
                                             value="${product.psb[0].sptext}" placeholder=""><br>
-                                        特點1&nbsp;<input type="text" name="psb[1].sptext" id=""
+                                        特點1&nbsp;<input type="text" name="psb[1].sptext"  maxlength="500"
                                             value="${product.psb[1].sptext}" placeholder=""><br>
-                                        特點2&nbsp;<input type="text" name="psb[2].sptext" id=""
+                                        特點2&nbsp;<input type="text" name="psb[2].sptext"  maxlength="500"
                                             value="${product.psb[2].sptext}" placeholder=""><br>
-                                        特點3&nbsp;<input type="text" name="psb[3].sptext" id=""
+                                        特點3&nbsp;<input type="text" name="psb[3].sptext"  maxlength="500"
                                             value="${product.psb[3].sptext}" placeholder=""><br>
-                                        特點4&nbsp;<input type="text" name="psb[4].sptext" id=""
+                                        特點4&nbsp;<input type="text" name="psb[4].sptext"  maxlength="500"
                                             value="${product.psb[4].sptext}" placeholder=""><br>
-                                        特點5&nbsp;<input type="text" name="psb[5].sptext" id=""
+                                        特點5&nbsp;<input type="text" name="psb[5].sptext"  maxlength="500"
                                             value="${product.psb[5].sptext}" placeholder=""><br>
-                                        特點6&nbsp;<input type="text" name="psb[6].sptext" id=""
+                                        特點6&nbsp;<input type="text" name="psb[6].sptext"  maxlength="500"
                                             value="${product.psb[6].sptext}" placeholder=""><br>
-                                        特點7&nbsp;<input type="text" name="psb[7].sptext" id=""
+                                        特點7&nbsp;<input type="text" name="psb[7].sptext"  maxlength="500"
                                             value="${product.psb[7].sptext}" placeholder=""><br>
                                     </c:if>
                                     <button type="button" class="newPSB" onclick="newPSB()">++</button><br>
@@ -348,9 +344,9 @@
                                     <tr>
                                         <form action="" method="post" class="upgroup">
                                             <td>類別名稱</td>
-                                            <td><input type="text" name="product_group" id="" value="${group}">
-                                            <td><input type="text" name="product_group2" id="" value="${group2}">
-                                            <td><input type="text" name="product_group3" id="" value="${group3}">
+                                            <td><input type="text" name="product_group"   value="${group}">
+                                            <td><input type="text" name="product_group2"  value="${group2}">
+                                            <td><input type="text" name="product_group3"  value="${group3}">
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -371,7 +367,7 @@
                                                     <input type="hidden" name="product_group" value="${group}">
                                                     <input type="hidden" name="product_group2" value="${group2}">
                                                     <input type="hidden" name="product_group3" value="${group3}">
-                                                    <td> <input type="text" name="product_type" id=""
+                                                    <td> <input type="text" name="product_type" 
                                                             value="${p.product_type}" placeholder="編號"></td>
                                                     <td><input type="text" name="product_option"
                                                             value="${p.product_option}"
@@ -402,16 +398,16 @@
                                     </c:if>
                                     <tr>
                                         <form class="newGroup" action="" method="post">
-                                            <td><input type="text" name="product_type" id="" placeholder="編號"></td>
+                                            <td><input type="text" name="product_type"  placeholder="編號"></td>
                                             <input type="hidden" name="product_group" value="${group}">
                                             <input type="hidden" name="product_group2" value="${group2}">
                                             <input type="hidden" name="product_group3" value="${group3}">
-                                            <td><input type="text" name="product_option" id="" placeholder="選項名稱"></td>
-                                            <td><input type="text" name="product_option2" id="" placeholder="選項名稱"></td>
-                                            <td><input type="text" name="product_option3" id="" placeholder="選項名稱"></td>
-                                            <td><input type="number" name="purchase_price" id="" placeholder="進價"></td>
-                                            <td><input type="number" name="product_price" id="" placeholder="售價"></td>
-                                            <td><input type="number" name="product_quantity" id="" placeholder="庫存">
+                                            <td><input type="text" name="product_option"   placeholder="選項名稱"></td>
+                                            <td><input type="text" name="product_option2"  placeholder="選項名稱"></td>
+                                            <td><input type="text" name="product_option3"  placeholder="選項名稱"></td>
+                                            <td><input type="number" name="purchase_price"  placeholder="進價"></td>
+                                            <td><input type="number" name="product_price"  placeholder="售價"></td>
+                                            <td><input type="number" name="product_quantity"  placeholder="庫存">
                                             </td>
                                             <td><button type="button" onclick="saveOption(0)">新增</button></td>
                                         </form>
@@ -435,7 +431,7 @@
                             </c:if>
                             <br>
                             <form class="row uppdf" action="" method="post" enctype='multipart/form-data'>
-                                <input type="file" id="" name="file1" onchange="upfile(0);" class="fileInput"
+                                <input type="file"  name="file1" onchange="upfile(0);" class="fileInput"
                                     value="" />
                             </form>
                         </div>
@@ -606,16 +602,16 @@
 
 
                         $(".orderTable").append('<tr><form class="newGroup" action="" method="post">' +
-                            ' <td><input type="text" name="product_type" id="" placeholder="編號"></td>' +
+                            ' <td><input type="text" name="product_type"  placeholder="編號"></td>' +
                             '<input type="hidden" name="product_group" value="${group}">' +
                             '<input type="hidden" name="product_group2" value="${group2}">' +
                             '<input type="hidden" name="product_group3" value="${group3}">' +
-                            '<td><input type="text" name="product_option" id="" placeholder="選項名稱"></td>' +
-                            '<td><input type="text" name="product_option2" id="" placeholder="選項名稱"></td>' +
-                            '<td><input type="text" name="product_option3" id="" placeholder="選項名稱"></td>' +
-                            '<td><input type="number" name="purchase_price" id="" placeholder="進價"></td>' +
-                            '<td><input type="number" name="product_price" id="" placeholder="售價"></td>' +
-                            '<td><input type="number" name="product_quantity" id="" placeholder="庫存"></td>' +
+                            '<td><input type="text" name="product_option"    placeholder="選項名稱"></td>' +
+                            '<td><input type="text" name="product_option2"   placeholder="選項名稱"></td>' +
+                            '<td><input type="text" name="product_option3"   placeholder="選項名稱"></td>' +
+                            '<td><input type="number" name="purchase_price"  placeholder="進價"></td>' +
+                            '<td><input type="number" name="product_price"   placeholder="售價"></td>' +
+                            '<td><input type="number" name="product_quantity"  placeholder="庫存"></td>' +
                             '<td><button type="button" onclick="saveOption(0)">新增</button></td>' +
                             '</form></tr>');
 
@@ -654,7 +650,7 @@
                 console.log(i);
                 i++;
                 var s = i + 1;
-                $(".psb").append('特點' + s + '&nbsp;<input type="text" name="psb[' + i + '].sptext" id="" value="" placeholder=""><br>');
+                $(".psb").append('特點' + s + '&nbsp;<input type="text" name="psb[' + i + '].sptext"  value="" placeholder=""><br>');
             }
 
 

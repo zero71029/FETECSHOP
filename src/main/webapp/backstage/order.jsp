@@ -162,11 +162,7 @@
                 </form>
             </div>
             <!-- <%-- // 訂單細節結束///////////////////////////////////////////////////////////////////////////////////////////////--%> -->
-            <!-- <%-- 頁首--%> -->
-            <header class="container-fluid mainColor headtop">
-                <a href='${pageContext.request.contextPath}/backstage/shopBack.jsp' class='title'>商城後台</a>
-                <!-- <%-- <button class="userIcon"></button>--%> -->
-            </header>
+
 
 
             <!-- <%-- 插入側邊欄--%> -->

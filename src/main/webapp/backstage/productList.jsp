@@ -109,15 +109,11 @@
             .TTT:hover {
                 background-color: #afe3d5;
             }
-
         </style>
 
         <body>
 
-            <!-- <%-- 頁首--%> -->
-            <header class="container-fluid mainColor headtop">
-                <a href='${pageContext.request.contextPath}/backstage/shopBack.jsp' class='title'>商城後台</a>
-            </header>
+
             <!-- <%-- 插入側邊欄--%> -->
             <jsp:include page="/backstage/Sidebar.jsp"></jsp:include>
             <!-- <%-- 中間主體--%> -->
@@ -152,9 +148,10 @@
                             <table class="Table table-striped orderTable">
                                 <tr>
                                     <td>商品編號</td>
-                                    <td>名稱</td>
                                     <td>貨號</td>
-                                    <td>庫存</td>
+                                    <td>名稱</td>
+                                    <td>名稱</td>
+
                                 </tr>
 
                                 <c:if test="${not empty productList}">
@@ -164,13 +161,13 @@
                                             onclick="javascript:location.href='${pageContext.request.contextPath}/backstage/product/${s.id}'">
                                             <td class="col-lg-1">
                                                 ${s.id}</td>
-                                            <td class="col-lg-1 ">
-                                                ${s.name}</td>
                                             <td class="col-lg-1 " style='color: black;'>
                                                 ${s.model}</td>
-                                            <td class="col-lg-1 " ${s.quantity>10 ? "style='color:
-                                                black;'":"style='color: red;'"}>
-                                                ${s.quantity}</td>
+                                            <td class="col-lg-1 ">
+                                                ${s.name}</td>
+                                                <td class="col-lg-1 ">
+                                                    ${s.cname}</td>
+
                                         </tr>
                                     </c:forEach>
                                 </c:if>
@@ -188,11 +185,11 @@
                 $(".form-control").val();
                 window.location.href = "${pageContext.request.contextPath}/backstage/selectProduct/" + $(".form-control").val();
             })
-            			//按回車
-			$(".form-control").keydown(function(e){				
-				if(e.keyCode== 13)window.location.href = "${pageContext.request.contextPath}/backstage/selectProduct/" + $(".form-control").val();
-				
-			})
+            //按回車
+            $(".form-control").keydown(function (e) {
+                if (e.keyCode == 13) window.location.href = "${pageContext.request.contextPath}/backstage/selectProduct/" + $(".form-control").val();
+
+            })
 
         </script>
 

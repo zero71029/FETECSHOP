@@ -42,11 +42,7 @@
         </style>
 
         <body>
-            <!-- <%-- 頁首--%> -->
-            <header class="container-fluid mainColor headtop">
-                <a href='${pageContext.request.contextPath}/backstage/shopBack.jsp' class='title'>商城後台</a>
-                <%-- <button class="userIcon"></button>--%>
-            </header>
+
 
 
             <!-- <%-- 插入側邊欄--%> -->
@@ -82,6 +78,7 @@
                                     </tr>
                                     <tr>
                                         <td colspan="2">
+                                            主旨: ${mess.theme} <br><br>
                                             <label for="exampleFormControlTextarea1" class="form-label">留言:</label>
                                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                                                 name="reply">${mess.message}</textarea>
@@ -94,7 +91,7 @@
                                                 method="post">
                                                 <input type="hidden" name="id" value="${mess.id}">
                                                 <label for="exampleFormControlTextarea1" class="form-label">回覆</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" maxlength="900"
                                                     name="reply">${mess.reply}</textarea>
                                                 <input type="submit" value="題交">
                                             </form>

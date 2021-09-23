@@ -35,14 +35,7 @@
         </style>
 
         <body>
-            <!-- <%-- 頁首--%> -->
-            <header class="container-fluid mainColor headtop">
-                <a href='${pageContext.request.contextPath}/backstage/shopBack.jsp' class='title'>商城後台</a>
-                <%-- <button class="userIcon"></button>--%>
-            </header>
-
-
-            <!-- <%-- 插入側邊欄--%> --> 
+             <!-- <%-- 插入側邊欄--%> --> 
             <jsp:include page="/backstage/Sidebar.jsp"></jsp:include>
             <!-- <%-- 中間主體///////////////////////////////////////////////////////////////////////////////////////--%> -->
 

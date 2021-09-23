@@ -34,7 +34,7 @@ public class ProductBean {
 	private String pictureurl;// 圖片名稱
 	private Integer count;
 	private Integer type;
-
+	private String cname;// 名子
 	
 	
 	//商品選項
@@ -65,6 +65,16 @@ public class ProductBean {
 	
 
 
+
+	
+	
+	public String getCname() {
+		return cname;
+	}
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
 
 	public List<PdfUrlBean> getPdfurl() {
 		return pdfurl;

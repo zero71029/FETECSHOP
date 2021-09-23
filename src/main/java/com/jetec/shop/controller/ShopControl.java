@@ -8,6 +8,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +42,7 @@ import com.jetec.shop.repository.ProductTypeRepository;
 import com.jetec.shop.repository.UserRepository;
 import com.jetec.shop.repository.service.BackstageService;
 import com.jetec.shop.repository.service.OrderService;
+import com.sun.jna.platform.win32.OaIdl.HREFTYPE;
 
 @Controller
 public class ShopControl {
@@ -547,9 +552,12 @@ public class ShopControl {
 
 	@RequestMapping("/shop/love2")
 	@ResponseBody
-	public List<ProductTypeBean> love2() {
+	public List<ProductTypeBean> love2(HttpServletRequest req) {
 		System.out.println("*****請求分類*****");
-		List<ProductTypeBean> love2 = ptr.findAll();
+		ServletContext app01 = req.getServletContext();
+		List<ProductTypeBean> love2 =(List<ProductTypeBean>) app01.getAttribute("love2");
+//	
+//		List<ProductTypeBean> love2 = ptr.findAll();
 		return love2;
 	}
 
@@ -634,22 +642,34 @@ public class ShopControl {
 			System.out.println(Integer.parseInt(product));
 			System.out.println(backstageService.getProduct(Integer.parseInt(product)));
 			productBean = backstageService.getProduct(Integer.parseInt(product));
-			list.add(productBean);
+			if (null != productBean)
+				list.add(productBean);
 
 		} catch (Exception e) {
 
 		}
+		boolean boo = true;
 		// 搜索貨號
 		for (ProductBean p : productRepository.findByModelLikeIgnoreCaseAndProductstatus("%" + product + "%", "1")) {
+			for (ProductBean bean : list) {
+				if (bean.getId() == p.getId()) {
+					boo = false;
+				}
+			}
 			list.add(p);
 		}
 
 		// 用名稱搜索
 		for (ProductBean p : productRepository.findByNameLikeIgnoreCaseAndProductstatus("%" + product + "%", "1")) {
-			if (null != p)
+			for (ProductBean bean : list) {
+				if (bean.getId() == p.getId()) {
+					boo = false;
+				}
+			}
+			if (boo)
 				list.add(p);
 		}
-
+		System.out.println(list);
 		model.addAttribute("maxPage", list);
 		return "/shop/shopSort";
 	}
@@ -669,7 +689,5 @@ public class ShopControl {
 		System.out.println(bean);
 		return backstageService.saveEmail(bean);
 	}
-
-
 
 }

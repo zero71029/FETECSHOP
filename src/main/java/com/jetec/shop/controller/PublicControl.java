@@ -40,16 +40,19 @@ public class PublicControl {
 		Map<String, String> errors = new HashMap<>();
 		model.addAttribute("errors", errors);
 // 機器人判斷		
-//		if (!zTools.recaptcha(token)) {
-//			System.out.println("errors.put(recaptcha, 需要驗證)");
-//			errors.put("recaptcha", "需要驗證");
-//		}
+		if (!zTools.recaptcha(token)) {
+			System.out.println("errors.put(recaptcha, 需要驗證)");
+			errors.put("recaptcha", "需要驗證");
+		}
+		AdminBean adminBean = backstageService.findAdmin(email, password);
+		if(adminBean == null)errors.put("result", "帳號密碼錯誤");
+		
 // 如果有錯 回原本頁面
 		if (errors != null && !errors.isEmpty()) {
 			System.out.println("errors");
 			return "/time";
 		}
-		AdminBean adminBean = backstageService.exAdmin(email, password);
+		
 		session.setAttribute("adminLogin", adminBean);
 		System.out.println(adminBean);
 

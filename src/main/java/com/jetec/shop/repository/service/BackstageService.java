@@ -4,13 +4,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import javax.mail.search.IntegerComparisonTerm;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fasterxml.jackson.core.sym.Name;
 import com.jetec.shop.model.AdminBean;
 import com.jetec.shop.model.EmailBean;
 import com.jetec.shop.model.MessageBean;
@@ -222,8 +223,8 @@ public class BackstageService {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 //員工儲存
-	public AdminBean saveAdmin(AdminBean adminBean) {		
-return adminRepository.save(adminBean);	
+	public AdminBean saveAdmin(AdminBean adminBean) {
+		return adminRepository.save(adminBean);
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -234,8 +235,19 @@ return adminRepository.save(adminBean);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //後台登入
-	public AdminBean findAdmin(String email,String password) {	
-			return adminRepository.findByEmailAndPassword(email ,password);
+	public AdminBean findAdmin(String email, String password) {
+		return adminRepository.findByEmailAndPassword(email, password);
+	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//讀取分頁資料	
+	public void getGroup(ServletContextEvent sce) {
+		System.out.println("*****讀取分頁資料******");
+		List<String> love1 = ptr.findLove1();
+		List<ProductTypeBean> love2 = ptr.findAll();
+		ServletContext app = sce.getServletContext();
+		app.setAttribute("love1", love1);
+		app.setAttribute("love2", love2);		
 	}
 
 }

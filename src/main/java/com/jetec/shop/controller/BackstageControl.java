@@ -8,10 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -388,12 +390,17 @@ public class BackstageControl {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
 //請求分類
 	@RequestMapping("/addType")
-	public String addType(Model model) {
+	public String addType(HttpServletRequest req,Model model) {
 		System.out.println("*****請求分類*****");
+		ServletContext app = req.getServletContext();
 		List<String> love1 = ptr.findLove1();
 		List<ProductTypeBean> love2 = ptr.findAll();
-		model.addAttribute("love1", love1);
-		model.addAttribute("love2", love2);
+		app.setAttribute("love1", love1);
+		app.setAttribute("love2", love2);	
+//		List<String> love1 = ptr.findLove1();
+//		List<ProductTypeBean> love2 = ptr.findAll();
+//		model.addAttribute("love1", love1);
+//		model.addAttribute("love2", love2);
 		return "/backstage/addType";
 	}
 
@@ -439,7 +446,7 @@ public class BackstageControl {
 		model.addAttribute("love1", love1);
 		model.addAttribute("love2", love2);
 		model.addAttribute("mess", "刪除成功");
-		return "/backstage/addType";
+		return "redirect:/backstage/addType";
 	}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////55
@@ -775,5 +782,7 @@ public class BackstageControl {
 		session.invalidate();
 		return "redirect:/time.jsp";
 	}
+
+
 
 }

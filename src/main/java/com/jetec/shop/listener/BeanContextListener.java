@@ -12,22 +12,24 @@ import org.springframework.stereotype.Component;
 import com.jetec.shop.model.ProductTypeBean;
 import com.jetec.shop.repository.ProductRepository;
 import com.jetec.shop.repository.ProductTypeRepository;
+import com.jetec.shop.repository.service.BackstageService;
 
 @Component
 public class BeanContextListener implements ServletContextListener {
 	
 	@Autowired
 	ProductTypeRepository ptr;
+	@Autowired
+	BackstageService bs;
     @Override
     public void contextInitialized(ServletContextEvent sce) {    	
-        System.out.println("bean context 初始化");
-        List<ProductTypeBean> list = ptr.findAll();
-        for(ProductTypeBean p : list)System.out.println(p);
-    	ServletContext app =sce.getServletContext();
-    	List<String> love1 = ptr.findLove1();
-    	List<ProductTypeBean> love2 = ptr.findAll();    
-    	app.setAttribute("love1", love1);
-    	app.setAttribute("love2", love2);
+        System.out.println("bean context 初始化");        
+        bs.getGroup(sce);
+//    	List<String> love1 = ptr.findLove1();
+//    	List<ProductTypeBean> love2 = ptr.findAll(); 
+//    	ServletContext app =sce.getServletContext();
+//    	app.setAttribute("love1", love1);
+//    	app.setAttribute("love2", love2);
     }
 
 

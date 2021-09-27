@@ -550,6 +550,7 @@ public class ShopControl {
 		return love1;
 	}
 
+	//幫拿application資料
 	@RequestMapping("/shop/love2")
 	@ResponseBody
 	public List<ProductTypeBean> love2(HttpServletRequest req) {
